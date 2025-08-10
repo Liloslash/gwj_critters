@@ -1,11 +1,30 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@onready var damage_zone: Area3D = $DamageZone
+
+@export var max_health = 100
+@export var current_health = 100
+@export var damage_per_tick = 5
+@export var damage_interval = 2
+ 
+var damage_timer = 0.0
+var enemies_in_range = []
+var is_taking_damage = false
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	damage_zone.body_entered.connect(_on_enemy_entered)
+	damage_zone.body_exited.connect(_on_enemy_exited)
+	
+func _on_enemy_entered(body):
+	## if body.is_in_group("enemies"):
+	pass
+	
+func _on_enemy_exited(body):
+	pass
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -25,8 +44,8 @@ func _physics_process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	# As good practice, you should replace UI actions with custom gameplay actions.sd
+	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
