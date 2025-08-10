@@ -10,6 +10,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * 0.002)
+		
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
