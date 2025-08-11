@@ -6,12 +6,13 @@ const JUMP_VELOCITY = 4.5
 signal health_changed(current, max)
 
 @onready var damage_zone: Area3D = $DamageZone
+@onready var weapon: RaycastWeapon = $RaycastWeapon
 
 @export var max_health = 100
 @export var current_health = 100
 @export var damage_per_tick = 5
 @export var damage_interval = 1
- 
+
 var damage_timer = 0.0
 var enemies_in_range = []
 var is_taking_damage = false
@@ -20,22 +21,24 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	damage_zone.body_entered.connect(_on_enemy_entered)
 	damage_zone.body_exited.connect(_on_enemy_exited)
-	
+
 func _on_enemy_entered(body):
 	if body and body.is_in_group("Enemy"):
 		if not enemies_in_range.has(body):
 			enemies_in_range.append(body)
 		is_taking_damage = true
-	
+
 func _on_enemy_exited(body):
 	if body and body.is_in_group("Enemy"):
 		enemies_in_range.erase(body)
 		is_taking_damage = enemies_in_range.size() > 0
-	
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * 0.002)
-		
+	if event.is_action_pressed("fire"):
+		if weapon and weapon.has_method("fire"):
+			weapon.fire()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -45,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 

@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 const SPEED = 3.0
 @export var acceleration = 10.0
+@export var max_health := 100
+var current_health := 100
 
 var player: CharacterBody3D
 
@@ -13,12 +15,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not player:
 		return
-		
+
 	var direction = (player.global_position - global_position).normalized()
-	
+
 	direction.y = 0
 	direction = direction.normalized()
-	
+
 	if direction.length() > 0:
 		velocity = velocity.move_toward(direction * SPEED, acceleration * delta)
 	else:
@@ -28,3 +30,11 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	move_and_slide()
+
+func apply_damage(amount: int) -> void:
+	current_health = max(0, current_health - amount)
+	if current_health == 0:
+		die()
+
+func die() -> void:
+	queue_free()
