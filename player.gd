@@ -3,12 +3,14 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+signal health_changed(current, max)
+
 @onready var damage_zone: Area3D = $DamageZone
 
 @export var max_health = 100
 @export var current_health = 100
 @export var damage_per_tick = 5
-@export var damage_interval = 2
+@export var damage_interval = 1
  
 var damage_timer = 0.0
 var enemies_in_range = []
@@ -20,11 +22,15 @@ func _ready() -> void:
 	damage_zone.body_exited.connect(_on_enemy_exited)
 	
 func _on_enemy_entered(body):
-	## if body.is_in_group("enemies"):
-	pass
+	if body and body.is_in_group("Enemy"):
+		if not enemies_in_range.has(body):
+			enemies_in_range.append(body)
+		is_taking_damage = true
 	
 func _on_enemy_exited(body):
-	pass
+	if body and body.is_in_group("Enemy"):
+		enemies_in_range.erase(body)
+		is_taking_damage = enemies_in_range.size() > 0
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -55,3 +61,21 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+	# Apply periodic damage while any enemy is within the damage zone
+	if enemies_in_range.size() > 0 and current_health > 0:
+		damage_timer += delta
+		if damage_timer >= float(damage_interval):
+			take_damage(damage_per_tick)
+			damage_timer = 0.0
+
+func heal(amount: int) -> void:
+	current_health = clamp(current_health + amount, 0, max_health)
+	emit_signal("health_changed", current_health, max_health)
+
+func take_damage(amount: int) -> void:
+	current_health = max(0, current_health - amount)
+	emit_signal("health_changed", current_health, max_health)
+
+func is_dead() -> bool:
+	return current_health <= 0

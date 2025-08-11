@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=9 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://Player.tscn" id="1_c6gwx"]
 [ext_resource type="PackedScene" uid="uid://bhuko84jtt65y" path="res://Enemy.tscn" id="2_2dftf"]
+[ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
 size = Vector3(50, 1, 50)
@@ -70,3 +71,5 @@ size = Vector3(50, 3, 1)
 
 [node name="Enemy" parent="." instance=ExtResource("2_2dftf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.65678, 1, 0)
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
