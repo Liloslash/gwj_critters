@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://caoh2ltkqoyvm"]
+[gd_scene load_steps=3 format=3 uid="uid://caoh2ltkqoyvm"]
 
 [ext_resource type="Script" uid="uid://cmdfqnxlt1llg" path="res://hud.gd" id="1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5de2"]
+font_size = 28
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -31,3 +34,15 @@ value = 100.0
 layout_mode = 2
 size_flags_vertical = 1
 text = "100/100"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_k5de2")

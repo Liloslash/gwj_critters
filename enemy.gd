@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func apply_damage(amount: int) -> void:
+func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
 	if current_health == 0:
 		die()
