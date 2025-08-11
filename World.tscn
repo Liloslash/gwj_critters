@@ -1,21 +1,73 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=15 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://Player.tscn" id="1_c6gwx"]
+[ext_resource type="Shader" uid="uid://eks8kuv7ovp3" path="res://floor.gdshader" id="1_js7pq"]
+[ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bhuko84jtt65y" path="res://Enemy.tscn" id="2_2dftf"]
+[ext_resource type="Shader" uid="uid://cjvpc8kpr3070" path="res://sky.gdshader" id="3_eu7l1"]
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
 size = Vector3(50, 1, 50)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
+render_priority = 1
+shader = ExtResource("1_js7pq")
+shader_parameter/dirt_color = Color(0.272904, 0.199826, 0.126596, 1)
+shader_parameter/grass_color = Color(0.120362, 0.323205, 0.053577, 1)
+shader_parameter/grass_threshold = 0.242
+shader_parameter/blend_sharpness = 8.703
+shader_parameter/noise_scale = 4.97
+shader_parameter/noise_strength = 0.573
+shader_parameter/dirt_roughness = 1.0
+shader_parameter/grass_roughness = 0.775
+
 [sub_resource type="BoxMesh" id="BoxMesh_bcbcq"]
 size = Vector3(50, 1, 50)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c6gwx"]
-sky_top_color = Color(0.529412, 0.807843, 0.921569, 1)
-sky_horizon_color = Color(0.690196, 0.878431, 0.901961, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
+noise_type = 3
+frequency = 0.0205
+fractal_type = 2
+fractal_lacunarity = 2.165
+fractal_gain = 1.54
+fractal_weighted_strength = 0.7
+domain_warp_enabled = true
+domain_warp_amplitude = 30.775
+domain_warp_frequency = 0.24
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p1v5b"]
+noise = SubResource("FastNoiseLite_eu7l1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wygdx"]
+shader = ExtResource("3_eu7l1")
+shader_parameter/sky_top_color = Color(0.421564, 0.570984, 0.764972, 1)
+shader_parameter/sky_horizon_color = Color(0.687065, 0.656698, 0.537811, 1)
+shader_parameter/sky_curve = 0.15
+shader_parameter/sky_energy = 1.0
+shader_parameter/sky_cover = SubResource("NoiseTexture2D_p1v5b")
+shader_parameter/sky_cover_modulate = Color(0.396889, 0.396889, 0.396889, 1)
+shader_parameter/ground_bottom_color = Color(0.206046, 0.174332, 0.137505, 1)
+shader_parameter/ground_horizon_color = Color(0.940978, 0.943081, 0.94603, 1)
+shader_parameter/ground_curve = 0.364
+shader_parameter/ground_energy = 1.545
+shader_parameter/sun_angle_max = 31.435
+shader_parameter/sun_curve = 0.015
+shader_parameter/exposure = 0.804
+shader_parameter/wind_offset_direction = Vector2(0.645, 0.1)
+shader_parameter/wind_speed = 0.704
+shader_parameter/clouds_change = true
+shader_parameter/cloud_change_rate = 0.923
+shader_parameter/pole_blend_shape = 2.0
+shader_parameter/pole_blend_strength = 0.0
+shader_parameter/pole_blend_brightness = 0.115
+shader_parameter/horizon_blend_shape = 0.379
+shader_parameter/horizon_blend_strength = 0.12
+shader_parameter/horizon_blend_brightness = 0.345
+shader_parameter/horizon_blend_width = 0.0
 
 [sub_resource type="Sky" id="Sky_2dftf"]
-sky_material = SubResource("ProceduralSkyMaterial_c6gwx")
+sky_material = SubResource("ShaderMaterial_wygdx")
 
 [sub_resource type="Environment" id="Environment_c6gwx"]
 background_mode = 2
@@ -24,17 +76,23 @@ ambient_light_source = 3
 glow_intensity = 2.37
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_p1v5b")
+enemy_scene = ExtResource("2_2dftf")
 metadata/_edit_lock_ = true
 
 [node name="Ground" type="StaticBody3D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_2dftf")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("ShaderMaterial_eu7l1")
 mesh = SubResource("BoxMesh_bcbcq")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_c6gwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -73,3 +131,9 @@ size = Vector3(50, 3, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.65678, 1, 0)
 
 [node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.246, 1.60236, 19.4003)
+gizmo_extents = 0.53
