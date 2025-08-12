@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dg11w7vqx14i2"
+path="res://.godot/imported/game-bonus-02.mp3-cd99a793bcefdd8f1e21aa6eadab3647.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Divers/game-bonus-02.mp3"
+dest_files=["res://.godot/imported/game-bonus-02.mp3-cd99a793bcefdd8f1e21aa6eadab3647.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

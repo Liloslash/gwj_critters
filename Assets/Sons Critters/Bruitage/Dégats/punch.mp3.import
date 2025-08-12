@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3rde0eff8od5"
+path="res://.godot/imported/punch.mp3-790ccd59aa4b368584f170136ea80587.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Dégats/punch.mp3"
+dest_files=["res://.godot/imported/punch.mp3-790ccd59aa4b368584f170136ea80587.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

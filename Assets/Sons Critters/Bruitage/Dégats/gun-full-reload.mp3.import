@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c6lkc5kx4peqv"
+path="res://.godot/imported/gun-full-reload.mp3-a6c9686b7bb56eea6c196d4ccaf309c7.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Dégats/gun-full-reload.mp3"
+dest_files=["res://.godot/imported/gun-full-reload.mp3-a6c9686b7bb56eea6c196d4ccaf309c7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

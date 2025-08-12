@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cnbxygdpdsrgr"
+path="res://.godot/imported/8-bit-melody-loop-37872.mp3-c6cb5d61eb77e29ea0c8790c05fb9e1e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Musiques/8-bit-melody-loop-37872.mp3"
+dest_files=["res://.godot/imported/8-bit-melody-loop-37872.mp3-c6cb5d61eb77e29ea0c8790c05fb9e1e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cyrn6xjr17k2f"
+path="res://.godot/imported/pain-sound-in-mask.mp3-92f547097409d0f9c89f6147da2a455b.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Gémissements/pain-sound-in-mask.mp3"
+dest_files=["res://.godot/imported/pain-sound-in-mask.mp3-92f547097409d0f9c89f6147da2a455b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

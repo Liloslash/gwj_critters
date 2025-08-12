@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b5tv8kpx5sh6"
+path="res://.godot/imported/footstep.mp3-29294fbd685d1bad905fa274f270b8a3.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Pas/footstep.mp3"
+dest_files=["res://.godot/imported/footstep.mp3-29294fbd685d1bad905fa274f270b8a3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

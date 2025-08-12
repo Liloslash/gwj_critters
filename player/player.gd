@@ -6,7 +6,7 @@ const JUMP_VELOCITY = 4.5
 signal health_changed(current, max)
 
 @onready var damage_zone: Area3D = $DamageZone
-@onready var weapon: RaycastWeapon = $RaycastWeapon
+@onready var weapon: RaycastWeapon = $MainWeapon
 
 @export var max_health = 100
 @export var current_health = 100

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://3pypbcefpl0s"
+path="res://.godot/imported/fist-fight.mp3-acd021c379b39bdcb48636dfa6843de4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Dégats/fist-fight.mp3"
+dest_files=["res://.godot/imported/fist-fight.mp3-acd021c379b39bdcb48636dfa6843de4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

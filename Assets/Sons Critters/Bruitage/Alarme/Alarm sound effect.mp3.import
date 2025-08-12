@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmjnhvvrv5hhk"
+path="res://.godot/imported/Alarm sound effect.mp3-26fae548f38419c1f74a094ded479bcc.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Alarme/Alarm sound effect.mp3"
+dest_files=["res://.godot/imported/Alarm sound effect.mp3-26fae548f38419c1f74a094ded479bcc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

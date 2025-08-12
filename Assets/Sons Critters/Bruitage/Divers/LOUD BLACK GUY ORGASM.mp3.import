@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bglwpft3j5orr"
+path="res://.godot/imported/LOUD BLACK GUY ORGASM.mp3-67dc0d657d83a61bb2e32ed5519b26cc.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Divers/LOUD BLACK GUY ORGASM.mp3"
+dest_files=["res://.godot/imported/LOUD BLACK GUY ORGASM.mp3-67dc0d657d83a61bb2e32ed5519b26cc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

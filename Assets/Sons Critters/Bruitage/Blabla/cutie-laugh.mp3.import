@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://5hmq2aebefxp"
+path="res://.godot/imported/cutie-laugh.mp3-17dfb570e1a16796f2c0ccc00b517155.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Blabla/cutie-laugh.mp3"
+dest_files=["res://.godot/imported/cutie-laugh.mp3-17dfb570e1a16796f2c0ccc00b517155.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

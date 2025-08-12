@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1gyc8osxoeq8"
+path="res://.godot/imported/boom-8-bit.mp3-8cb7edd051fba725ec4aec2882fa85c9.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Dégats/boom-8-bit.mp3"
+dest_files=["res://.godot/imported/boom-8-bit.mp3-8cb7edd051fba725ec4aec2882fa85c9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

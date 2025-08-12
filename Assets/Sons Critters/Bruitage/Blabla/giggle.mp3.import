@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bg6r3ukf42swc"
+path="res://.godot/imported/giggle.mp3-8a9f6dbc1774a010bb6aed49d3724ea6.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Blabla/giggle.mp3"
+dest_files=["res://.godot/imported/giggle.mp3-8a9f6dbc1774a010bb6aed49d3724ea6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

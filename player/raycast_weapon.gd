@@ -1,9 +1,11 @@
 extends Node
 class_name RaycastWeapon
 
+@onready var gun_shot: AudioStreamPlayer = $"../GunShot"
+
 signal hit_confirmed(target, position: Vector3)
 
-@export var damage: int = 25
+@export var damage: int = 50
 @export var ray_distance: float = 2000.0
 @export var collision_mask: int = 1
 @export var camera_path: NodePath
@@ -29,6 +31,7 @@ func fire() -> void:
 	var space: PhysicsDirectSpaceState3D = get_viewport().world_3d.direct_space_state
 	var query := _build_query(from, to)
 	var result: Dictionary = space.intersect_ray(query)
+	gun_shot.play()
 	if result.is_empty():
 		_apply_recoil()
 		return

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjyqtfuaedmnu"
+path="res://.godot/imported/children-giggling-kids-laughing.mp3-ff178f56e320fc10b497a23f9ea720e5.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Blabla/children-giggling-kids-laughing.mp3"
+dest_files=["res://.godot/imported/children-giggling-kids-laughing.mp3-ff178f56e320fc10b497a23f9ea720e5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

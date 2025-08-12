@@ -21,6 +21,7 @@ shader_parameter/metallic = 0.0
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_tt7e2")
+SPEED = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_gqquq")

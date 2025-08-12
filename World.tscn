@@ -78,6 +78,8 @@ glow_intensity = 2.37
 [node name="World" type="Node3D"]
 script = ExtResource("1_p1v5b")
 enemy_scene = ExtResource("2_2dftf")
+wave_pause_seconds = 1.8
+enemy_count_base = 2
 metadata/_edit_lock_ = true
 
 [node name="Ground" type="StaticBody3D" parent="."]

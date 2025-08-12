@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://obox0thcpq1s"
+path="res://.godot/imported/8-bit-explosion.mp3-153096c572d0699d756289375f7ba731.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Dégats/8-bit-explosion.mp3"
+dest_files=["res://.godot/imported/8-bit-explosion.mp3-153096c572d0699d756289375f7ba731.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

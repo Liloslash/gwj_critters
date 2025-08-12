@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cnxna2q2hfv33"
+path="res://.godot/imported/young-male-scream.mp3-0058c1502c8a286b5a9292af5e9332ee.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Gémissements/young-male-scream.mp3"
+dest_files=["res://.godot/imported/young-male-scream.mp3-0058c1502c8a286b5a9292af5e9332ee.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

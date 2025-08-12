@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dyfxyma8mekdb"
+path="res://.godot/imported/8-bit-energetic-drums-chiptune-beat.mp3-eb1785dc8cfd2bb635299cb15f850f24.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Musiques/8-bit-energetic-drums-chiptune-beat.mp3"
+dest_files=["res://.godot/imported/8-bit-energetic-drums-chiptune-beat.mp3-eb1785dc8cfd2bb635299cb15f850f24.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

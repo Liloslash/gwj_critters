@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bporlauvhb1m8"]
+[gd_scene load_steps=6 format=3 uid="uid://bporlauvhb1m8"]
 
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
+[ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
@@ -23,7 +24,11 @@ shape = SubResource("CapsuleShape3D_0rwas")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageZone"]
 shape = SubResource("SphereShape3D_xhfnw")
 
-[node name="RaycastWeapon" type="Node" parent="."]
+[node name="MainWeapon" type="Node" parent="."]
 script = ExtResource("2_weapon")
 camera_path = NodePath("../Node3D/Camera3D")
 player_body_path = NodePath("..")
+
+[node name="GunShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wnvi2")
+max_polyphony = 4

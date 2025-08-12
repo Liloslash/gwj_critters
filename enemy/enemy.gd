@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 3.0
+@export var SPEED = 3.0
 @export var acceleration = 10.0
 @export var max_health := 100
 var current_health := 100
