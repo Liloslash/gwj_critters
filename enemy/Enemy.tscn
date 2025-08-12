@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhuko84jtt65y"]
 
-[ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy.gd" id="1_tt7e2"]
-[ext_resource type="Shader" path="res://enemy.gdshader" id="2_enemy_shader"]
+[ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy/enemy.gd" id="1_tt7e2"]
+[ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_enemy_shader"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 
