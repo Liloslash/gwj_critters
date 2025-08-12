@@ -64,15 +64,20 @@ func _apply_recoil() -> void:
 	if _recoil_tween and _recoil_tween.is_running():
 		_recoil_tween.kill()
 
-	var start_rot: Vector3 = _camera.rotation_degrees
-	var target_rot: Vector3 = start_rot
-	# Pitch up (positive X rotates up in this project setup)
-	target_rot.x = start_rot.x + recoil_pitch_deg
-	# Slight random yaw left/right
+	# Define a neutral/base rotation that is locked to the horizon for pitch (x = 0)
+	# This prevents cumulative upwards drift if firing rapidly.
+	var current_rot: Vector3 = _camera.rotation_degrees
+	var base_rot: Vector3 = current_rot
+	base_rot.x = 0.0
+
+	var target_rot: Vector3 = base_rot
+	# Pitch up from the horizon
+	target_rot.x = base_rot.x + recoil_pitch_deg
+	# Slight random yaw left/right around the current yaw
 	var yaw_offset: float = randf_range(-recoil_yaw_deg, recoil_yaw_deg)
-	target_rot.y = start_rot.y + yaw_offset
+	target_rot.y = base_rot.y + yaw_offset
 
 	_recoil_tween = create_tween()
 	_recoil_tween.set_parallel(false)
 	_recoil_tween.tween_property(_camera, "rotation_degrees", target_rot, recoil_up_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	_recoil_tween.tween_property(_camera, "rotation_degrees", start_rot, recoil_return_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_recoil_tween.tween_property(_camera, "rotation_degrees", base_rot, recoil_return_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
