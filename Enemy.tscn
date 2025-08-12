@@ -1,13 +1,12 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhuko84jtt65y"]
 
 [ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy.gd" id="1_tt7e2"]
-[ext_resource type="Shader" path="res://enemy.gdshader" id="2_enemy_shader"]
+[ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://enemy.gdshader" id="2_enemy_shader"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_tt7e2"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy"]
+render_priority = 0
 shader = ExtResource("2_enemy_shader")
 shader_parameter/base_color = Color(0.05, 0.02, 0.06, 1)
 shader_parameter/rim_color = Color(0.95, 0.06, 0.06, 1)
@@ -17,6 +16,8 @@ shader_parameter/emissive_strength = 2.5
 shader_parameter/distort_amount = 0.02
 shader_parameter/roughness = 0.65
 shader_parameter/metallic = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tt7e2"]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_tt7e2")
