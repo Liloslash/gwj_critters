@@ -1,29 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=13 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
-[ext_resource type="Shader" uid="uid://eks8kuv7ovp3" path="res://shaders/floor.gdshader" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bhuko84jtt65y" path="res://enemy/Enemy.tscn" id="2_2dftf"]
 [ext_resource type="Shader" uid="uid://cjvpc8kpr3070" path="res://shaders/sky.gdshader" id="3_eu7l1"]
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
-size = Vector3(50, 1, 50)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
-render_priority = 1
-shader = ExtResource("1_js7pq")
-shader_parameter/dirt_color = Color(0.272904, 0.199826, 0.126596, 1)
-shader_parameter/grass_color = Color(0.120362, 0.323205, 0.053577, 1)
-shader_parameter/grass_threshold = 0.242
-shader_parameter/blend_sharpness = 8.703
-shader_parameter/noise_scale = 4.97
-shader_parameter/noise_strength = 0.573
-shader_parameter/dirt_roughness = 1.0
-shader_parameter/grass_roughness = 0.775
-
-[sub_resource type="BoxMesh" id="BoxMesh_bcbcq"]
-size = Vector3(50, 1, 50)
+[ext_resource type="PackedScene" uid="uid://b61twobjleh7i" path="res://map/Arena.glb" id="3_p1v5b"]
+[ext_resource type="PackedScene" uid="uid://c3jaykh7dvwlh" path="res://map/Obstacles.glb" id="3_wygdx"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -82,19 +65,9 @@ wave_pause_seconds = 1.8
 enemy_count_base = 2
 metadata/_edit_lock_ = true
 
-[node name="Ground" type="StaticBody3D" parent="."]
-metadata/_edit_lock_ = true
+[node name="Obstacles" parent="." instance=ExtResource("3_wygdx")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_2dftf")
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = SubResource("ShaderMaterial_eu7l1")
-mesh = SubResource("BoxMesh_bcbcq")
-metadata/_edit_lock_ = true
+[node name="Arena" parent="." instance=ExtResource("3_p1v5b")]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_c6gwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -107,28 +80,6 @@ environment = SubResource("Environment_c6gwx")
 transform = Transform3D(0.809017, 0.50383, -0.302732, 0, 0.515038, 0.857167, 0.587785, -0.693463, 0.416675, 0, 7.91, 9.725)
 shadow_enabled = true
 
-[node name="Walls" type="Node3D" parent="."]
-
-[node name="Wall1" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 24.481)
-use_collision = true
-size = Vector3(50, 3, 1)
-
-[node name="Wall2" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -24)
-use_collision = true
-size = Vector3(50, 3, 1)
-
-[node name="Wall3" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, 0.5, 0)
-use_collision = true
-size = Vector3(50, 3, 1)
-
-[node name="Wall4" type="CSGBox3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0.5, 0)
-use_collision = true
-size = Vector3(50, 3, 1)
-
 [node name="HUD" parent="." instance=ExtResource("3_hud")]
 
 [node name="SpawnTimer" type="Timer" parent="."]
@@ -136,16 +87,19 @@ size = Vector3(50, 3, 1)
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="SpawnPoint" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1.5, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.5, 28)
 gizmo_extents = 0.53
 
 [node name="SpawnPoint2" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1.5, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.5, 28)
 
 [node name="SpawnPoint3" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1.5, -19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.5, -28)
 
 [node name="SpawnPoint4" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1.5, -19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.5, -28)
 
 [node name="WaveTimer" type="Timer" parent="."]
+
+[editable path="Obstacles"]
+[editable path="Arena"]
