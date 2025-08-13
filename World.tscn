@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=14 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bhuko84jtt65y" path="res://enemy/Enemy.tscn" id="2_2dftf"]
+[ext_resource type="PackedScene" uid="uid://c8yfcvieayxll" path="res://enemy/EnemyFast.tscn" id="3_bah7m"]
 [ext_resource type="Shader" uid="uid://cjvpc8kpr3070" path="res://shaders/sky.gdshader" id="3_eu7l1"]
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://b61twobjleh7i" path="res://map/Arena.glb" id="3_p1v5b"]
@@ -61,6 +62,7 @@ glow_intensity = 2.37
 [node name="World" type="Node3D"]
 script = ExtResource("1_p1v5b")
 enemy_scene = ExtResource("2_2dftf")
+enemy_scenes = Array[PackedScene]([ExtResource("2_2dftf"), ExtResource("3_bah7m")])
 wave_pause_seconds = 1.8
 enemy_count_base = 2
 metadata/_edit_lock_ = true

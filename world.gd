@@ -7,6 +7,7 @@ extends Node3D
 @onready var wave_timer: Timer = $WaveTimer
 
 @export var enemy_scene: PackedScene
+@export var enemy_scenes: Array[PackedScene] = []
 @export var spawn_interval_seconds: float = 1.0
 @export var wave_pause_seconds: float = 2.0
 @export var enemy_count_base: int = 4
@@ -85,15 +86,29 @@ func _get_random_spawn_marker() -> Marker3D:
 	return spawn_markers[random_index]
 
 func _spawn_enemy_at_marker(marker: Marker3D) -> bool:
-	if enemy_scene == null or marker == null:
+	if marker == null:
 		return false
-	var enemy_instance: Node3D = enemy_scene.instantiate()
+	var scene_to_spawn: PackedScene = _pick_enemy_scene()
+	if scene_to_spawn == null and enemy_scene != null:
+		scene_to_spawn = enemy_scene
+	if scene_to_spawn == null:
+		return false
+	var enemy_instance: Node3D = scene_to_spawn.instantiate()
 	enemy_instance.transform = marker.global_transform
 	add_child(enemy_instance)
 	enemies_alive_count += 1
 	if not enemy_instance.tree_exited.is_connected(_on_enemy_tree_exited):
 		enemy_instance.tree_exited.connect(_on_enemy_tree_exited)
 	return true
+
+func _pick_enemy_scene() -> PackedScene:
+	if enemy_scenes == null:
+		return null
+	var count := enemy_scenes.size()
+	if count <= 0:
+		return null
+	var idx := randi() % count
+	return enemy_scenes[idx]
 
 func _spawn_enemy_random() -> bool:
 	var marker: Marker3D = _get_random_spawn_marker()

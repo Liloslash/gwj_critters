@@ -15,6 +15,7 @@ signal health_changed(current, max)
 
 var damage_timer = 0.0
 var enemies_in_range = []
+var damage_per_enemy_default := 5
 var is_taking_damage = false
 
 func _ready() -> void:
@@ -69,7 +70,15 @@ func _physics_process(delta: float) -> void:
 	if enemies_in_range.size() > 0 and current_health > 0:
 		damage_timer += delta
 		if damage_timer >= float(damage_interval):
-			take_damage(damage_per_tick)
+			var total_tick_damage := 0
+			for enemy in enemies_in_range:
+				if enemy and enemy.has_method("get_contact_damage"):
+					total_tick_damage += int(enemy.get_contact_damage())
+				else:
+					total_tick_damage += damage_per_enemy_default
+			if total_tick_damage <= 0:
+				total_tick_damage = damage_per_tick
+			take_damage(total_tick_damage)
 			damage_timer = 0.0
 
 func heal(amount: int) -> void:

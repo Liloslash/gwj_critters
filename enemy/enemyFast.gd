@@ -1,11 +1,11 @@
 extends CharacterBody3D
 
 
-@export var SPEED = 3.0
+@export var SPEED = 10.0
 @export var acceleration = 10.0
-@export var max_health := 100
-var current_health := 100
-@export var contact_damage: int = 5
+@export var max_health := 25
+var current_health := 25
+@export var contact_damage: int = 2
 
 var player: CharacterBody3D
 
