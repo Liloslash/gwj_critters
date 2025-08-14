@@ -31,13 +31,9 @@ func _ready() -> void:
 
 
 func _on_spawn_timer_timeout() -> void:
-	if _spawn_enemy_random():
-		enemies_spawned_in_wave += 1
-		if enemies_spawned_in_wave >= enemies_to_spawn_this_wave:
-			spawn_timer.stop()
-			# If all spawned enemies are already dead, finish the wave now
-			if enemies_alive_count <= 0:
-				_finish_wave()
+	if not _spawn_enemy_random():
+		return
+	_on_enemy_spawned()
 
 func _start_next_wave() -> void:
 	is_between_waves = false
@@ -89,7 +85,7 @@ func _spawn_enemy_at_marker(marker: Marker3D) -> bool:
 	if marker == null:
 		return false
 	var scene_to_spawn: PackedScene = _pick_enemy_scene()
-	if scene_to_spawn == null and enemy_scene != null:
+	if scene_to_spawn == null:
 		scene_to_spawn = enemy_scene
 	if scene_to_spawn == null:
 		return false
@@ -125,6 +121,14 @@ func _finish_wave() -> void:
 func _on_enemy_tree_exited() -> void:
 	enemies_alive_count = max(0, enemies_alive_count - 1)
 	if spawn_timer.is_stopped() and enemies_alive_count == 0:
+		_finish_wave()
+
+func _on_enemy_spawned() -> void:
+	enemies_spawned_in_wave += 1
+	if enemies_spawned_in_wave < enemies_to_spawn_this_wave:
+		return
+	spawn_timer.stop()
+	if enemies_alive_count <= 0:
 		_finish_wave()
 
 func _update_hud_wave_started() -> void:

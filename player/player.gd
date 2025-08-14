@@ -4,6 +4,7 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 4.5
 
 signal health_changed(current, max)
+signal game_over
 
 @onready var damage_zone: Area3D = $DamageZone
 @onready var weapon: RaycastWeapon = $MainWeapon
@@ -24,24 +25,29 @@ func _ready() -> void:
 	damage_zone.body_exited.connect(_on_enemy_exited)
 
 func _on_enemy_entered(body):
-	if body and body.is_in_group("Enemy"):
-		if not enemies_in_range.has(body):
-			enemies_in_range.append(body)
-		is_taking_damage = true
+	if not _is_enemy(body):
+		return
+	if not enemies_in_range.has(body):
+		enemies_in_range.append(body)
+	is_taking_damage = true
 
 func _on_enemy_exited(body):
-	if body and body.is_in_group("Enemy"):
-		enemies_in_range.erase(body)
-		is_taking_damage = enemies_in_range.size() > 0
+	if not _is_enemy(body):
+		return
+	enemies_in_range.erase(body)
+	is_taking_damage = enemies_in_range.size() > 0
 
 func _input(event: InputEvent) -> void:
+	if is_dead():
+		return
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * 0.002)
+		_handle_mouse_motion(event)
 	if event.is_action_pressed("fire"):
-		if weapon and weapon.has_method("fire"):
-			weapon.fire()
+		_try_fire_weapon()
 
 func _physics_process(delta: float) -> void:
+	if is_dead():
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -66,28 +72,51 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Apply periodic damage while any enemy is within the damage zone
-	if enemies_in_range.size() > 0 and current_health > 0:
-		damage_timer += delta
-		if damage_timer >= float(damage_interval):
-			var total_tick_damage := 0
-			for enemy in enemies_in_range:
-				if enemy and enemy.has_method("get_contact_damage"):
-					total_tick_damage += int(enemy.get_contact_damage())
-				else:
-					total_tick_damage += damage_per_enemy_default
-			if total_tick_damage <= 0:
-				total_tick_damage = damage_per_tick
-			take_damage(total_tick_damage)
-			damage_timer = 0.0
+	_process_damage(delta)
 
-func heal(amount: int) -> void:
-	current_health = clamp(current_health + amount, 0, max_health)
-	emit_signal("health_changed", current_health, max_health)
+func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
+	rotate_y(-event.relative.x * 0.002)
+
+func _try_fire_weapon() -> void:
+	if weapon and weapon.has_method("fire"):
+		weapon.fire()
+
+func _process_damage(delta: float) -> void:
+	if enemies_in_range.is_empty() or is_dead():
+		return
+	damage_timer += delta
+	if damage_timer < float(damage_interval):
+		return
+	var total_tick_damage := _compute_total_tick_damage()
+	if total_tick_damage <= 0:
+		total_tick_damage = damage_per_tick
+	take_damage(total_tick_damage)
+	damage_timer = 0.0
+
+func is_dead() -> bool:
+	return current_health <= 0
+
+func _compute_total_tick_damage() -> int:
+	var total := 0
+	for enemy in enemies_in_range:
+		if enemy and enemy.has_method("get_contact_damage"):
+			total += int(enemy.get_contact_damage())
+		else:
+			total += damage_per_enemy_default
+	return total
+
+func _is_enemy(body) -> bool:
+	return body != null and body.is_in_group("Enemy")
+
 
 func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
 	emit_signal("health_changed", current_health, max_health)
+	if current_health <= 0:
+		die()
 
-func is_dead() -> bool:
-	return current_health <= 0
+func die() -> void:
+	velocity = Vector3.ZERO
+	set_process_input(false)
+	set_physics_process(false)
+	game_over.emit()

@@ -38,7 +38,6 @@ func fire() -> void:
 	_apply_damage(result.collider)
 	_apply_recoil()
 
-
 func _compute_ray_end(from: Vector3) -> Vector3:
 	return from + (-_camera.global_transform.basis.z) * ray_distance
 

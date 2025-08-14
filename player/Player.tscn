@@ -32,4 +32,5 @@ player_body_path = NodePath("..")
 
 [node name="GunShot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wnvi2")
+volume_db = -20.702
 max_polyphony = 4
