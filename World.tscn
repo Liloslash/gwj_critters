@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c8yfcvieayxll" path="res://enemy/EnemyFast.tscn" id="3_bah7m"]
 [ext_resource type="Shader" uid="uid://cjvpc8kpr3070" path="res://shaders/sky.gdshader" id="3_eu7l1"]
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
-[ext_resource type="PackedScene" uid="uid://b61twobjleh7i" path="res://map/Arena.glb" id="3_p1v5b"]
-[ext_resource type="PackedScene" uid="uid://c3jaykh7dvwlh" path="res://map/Obstacles.glb" id="3_wygdx"]
+[ext_resource type="PackedScene" uid="uid://b5v7mvrbkibl0" path="res://map/Arena.glb" id="3_p1v5b"]
+[ext_resource type="PackedScene" uid="uid://bqhbsi6kyt762" path="res://map/Obstacles.glb" id="3_wygdx"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -67,9 +67,9 @@ wave_pause_seconds = 1.8
 enemy_count_base = 2
 metadata/_edit_lock_ = true
 
-[node name="Obstacles" parent="." instance=ExtResource("3_wygdx")]
-
 [node name="Arena" parent="." instance=ExtResource("3_p1v5b")]
+
+[node name="Obstacles" parent="." instance=ExtResource("3_wygdx")]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_c6gwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -102,6 +102,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.5, -28)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.5, -28)
 
 [node name="WaveTimer" type="Timer" parent="."]
-
-[editable path="Obstacles"]
-[editable path="Arena"]
