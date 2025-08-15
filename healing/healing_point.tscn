@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://xlowewwvo1os"]
+
+[ext_resource type="Script" uid="uid://bvmoftpovq6a" path="res://healing/healing_point.gd" id="1_3v8dx"]
+[ext_resource type="Shader" uid="uid://brnh2c5ljakge" path="res://healing_shader.gdshader" id="1_wblyx"]
+[ext_resource type="AudioStream" uid="uid://vmi8b8r1ktio" path="res://Assets/Sons Critters/Bruitage/Divers/video-game-bonus.mp3" id="2_p14hl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f5c0m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2ar6"]
+render_priority = 0
+shader = ExtResource("1_wblyx")
+shader_parameter/wave_speed = 1.866
+shader_parameter/wave_count = 6
+shader_parameter/wave_sharpness = 10.0
+shader_parameter/wave_color = Color(0, 1, 0.35, 1)
+shader_parameter/background_color = Color(0, 0.4, 0.1, 0)
+shader_parameter/glow_intensity = 3.0
+
+[node name="HealingPoint" type="Area3D"]
+script = ExtResource("1_3v8dx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_f5c0m")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+material_override = SubResource("ShaderMaterial_b2ar6")
+
+[node name="HealingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_p14hl")
+volume_db = -25.0

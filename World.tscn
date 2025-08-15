@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=18 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://b5v7mvrbkibl0" path="res://map/Arena.glb" id="3_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bqhbsi6kyt762" path="res://map/Obstacles.glb" id="3_wygdx"]
+[ext_resource type="Script" uid="uid://cxlnjf0w6uq4o" path="res://healing/healing_points.gd" id="9_f5c0m"]
 [ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
 [ext_resource type="AudioStream" uid="uid://c27ungj3tid2y" path="res://Assets/Sons Critters/Bruitage/Gong/shovel-gong.mp3" id="10_fvag4"]
 
@@ -82,8 +83,11 @@ enemy_count_base = 2
 metadata/_edit_lock_ = true
 
 [node name="Arena" parent="." instance=ExtResource("3_p1v5b")]
+transform = Transform3D(0.995744, 0, -0.092162, 0, 1, 0, 0.092162, 0, 0.995744, 0, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="Obstacles" parent="." instance=ExtResource("3_wygdx")]
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_c6gwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -99,6 +103,28 @@ shadow_enabled = true
 [node name="HUD" parent="." instance=ExtResource("3_hud")]
 
 [node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="HealPoints" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("9_f5c0m")
+
+[node name="Marker3D" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3102, 0.976776, -22.6685)
+
+[node name="Marker3D2" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3102, 0.976776, 13.4196)
+
+[node name="Marker3D3" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.423459, 0.976776, -27.1731)
+
+[node name="Marker3D4" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6209, 0.976776, 27.6435)
+
+[node name="Marker3D5" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68307, 0.976776, -2.22275)
+
+[node name="Marker3D6" type="Marker3D" parent="HealPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6271, 0.976776, -22.6685)
 
 [node name="SpawnZones" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-@export var SPEED = 9.0
+@export var SPEED = 8
 @export var max_health := 25
 var current_health := 25
 @export var contact_damage: int = 2

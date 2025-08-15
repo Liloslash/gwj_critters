@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var SPEED = 5.0
+@export var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 
 signal health_changed(current, max)
@@ -139,6 +139,9 @@ func take_damage(amount: int) -> void:
 	emit_signal("health_changed", current_health, max_health)
 	if current_health <= 0:
 		die()
+
+func heal(amount: int) -> void:
+	current_health = min(max_health, current_health + amount)
 
 func die() -> void:
 	velocity = Vector3.ZERO

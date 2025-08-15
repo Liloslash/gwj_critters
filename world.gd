@@ -4,6 +4,7 @@ extends Node3D
 @onready var wave_timer: Timer = $WaveTimer
 
 @onready var spawn_zones: Area3D = $SpawnZones
+@onready var heal_points: Node3D = $HealPoints
 
 @onready var gong_player: AudioStreamPlayer = $GongPlayer
 
@@ -84,6 +85,7 @@ func _spawn_enemy_random() -> void:
 	enemies_alive_count += 1
 
 func _finish_wave() -> void:
+	heal_points.spawn_healing_point()
 	if is_between_waves:
 		return
 	is_between_waves = true
