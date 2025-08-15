@@ -20,8 +20,10 @@ var enemies_to_spawn_this_wave: int = 0
 var enemies_spawned_in_wave: int = 0
 var enemies_alive_count: int = 0
 var is_between_waves: bool = false
+var HUD: HUD = null
 
 func _ready() -> void:
+	HUD = get_node_or_null("HUD")
 	_configure_spawn_timer()
 	_configure_wave_timer()
 	_seed_rng()
@@ -63,23 +65,11 @@ func _configure_wave_timer() -> void:
 func _seed_rng() -> void:
 	randomize()
 
-func _pick_enemy_scene() -> PackedScene:
-	if enemy_scenes == null:
-		return null
-	var count := enemy_scenes.size()
-	if count <= 0:
-		return null
-	var idx := randi() % count
-	return enemy_scenes[idx]
-
 func _spawn_enemy_random() -> void:
-	var position: Vector3 = spawn_zones.get_random_position()
-	return _spawn_enemy_at_position(position)
-
-func _spawn_enemy_at_position(position: Vector3) -> void:
-	var scene_to_spawn: PackedScene = _pick_enemy_scene()
+	var random_position: Vector3 = spawn_zones.get_random_position()
+	var scene_to_spawn: PackedScene = enemy_scenes[randi() % enemy_scenes.size()]
 	var enemy_instance: Node3D = scene_to_spawn.instantiate()
-	enemy_instance.transform = Transform3D(Basis(), position)
+	enemy_instance.transform = Transform3D(Basis(), random_position)
 	add_child(enemy_instance)
 
 	# Connecter le signal de mort de l'ennemi
@@ -98,8 +88,6 @@ func _finish_wave() -> void:
 
 func _on_enemy_died() -> void:
 	enemies_alive_count = max(0, enemies_alive_count - 1)
-	print("Enemy died. Enemies alive: %d" % enemies_alive_count)
-	# Vérifier si la vague est terminée (tous les ennemis spawned ET tous morts)
 	if spawn_timer.is_stopped() and enemies_alive_count == 0:
 		_finish_wave()
 
@@ -108,22 +96,16 @@ func _on_enemy_spawned() -> void:
 	print("Spawned enemy %d/%d this wave. Enemies alive: %d" % [enemies_spawned_in_wave, enemies_to_spawn_this_wave, enemies_alive_count])
 	if enemies_spawned_in_wave < enemies_to_spawn_this_wave:
 		return
-	# Tous les ennemis de la vague ont été spawnés, arrêter le timer de spawn
 	spawn_timer.stop()
-	print("All enemies spawned for wave %d. Waiting for all to die..." % current_wave)
-	# Vérifier si la vague est déjà terminée (cas où les ennemis meurent très vite)
 	if enemies_alive_count == 0:
 		_finish_wave()
 
 func _update_hud_wave_started() -> void:
-	var hud: Node = get_node_or_null("HUD")
-	if hud and hud.has_method("set_wave"):
-		hud.set_wave("Wave %d" % current_wave)
+	HUD.set_wave("Wave %d" % current_wave)
+	HUD.show_wave_start(current_wave)
 
 func _update_hud_wave_ended() -> void:
-	var hud: Node = get_node_or_null("HUD")
-	if hud and hud.has_method("set_wave"):
-		hud.set_wave("Waiting for next wave...")
+	HUD.set_wave("Waiting for next wave...")
 
 # --- Difficulty/Scaling Logic ---
 

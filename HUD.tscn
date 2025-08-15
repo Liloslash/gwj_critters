@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://caoh2ltkqoyvm"]
+[gd_scene load_steps=5 format=3 uid="uid://caoh2ltkqoyvm"]
 
 [ext_resource type="Script" uid="uid://cmdfqnxlt1llg" path="res://hud.gd" id="1"]
 
@@ -8,6 +8,10 @@ font_size = 28
 [sub_resource type="LabelSettings" id="LabelSettings_efote"]
 font_size = 100
 font_color = Color(1, 0.352941, 0.360784, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vow1y"]
+font_size = 150
+font_color = Color(0.1, 0.16, 1, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -90,5 +94,21 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Try Again"
+
+[node name="WaveHUDTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="WaveStart" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WaveStartLabel" type="Label" parent="WaveStart"]
+layout_mode = 2
+text = "Wave 1 !"
+label_settings = SubResource("LabelSettings_vow1y")
 
 [connection signal="pressed" from="GameOver/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

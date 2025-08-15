@@ -30,6 +30,10 @@ script = ExtResource("2_weapon")
 camera_path = NodePath("../Node3D/Camera3D")
 player_body_path = NodePath("..")
 
+[node name="FireRateTimer" type="Timer" parent="MainWeapon"]
+wait_time = 0.7
+one_shot = true
+
 [node name="GunShot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wnvi2")
 volume_db = -20.702

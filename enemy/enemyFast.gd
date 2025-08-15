@@ -1,8 +1,7 @@
 extends CharacterBody3D
 
 
-@export var SPEED = 10.0
-@export var acceleration = 10.0
+@export var SPEED = 9.0
 @export var max_health := 25
 var current_health := 25
 @export var contact_damage: int = 2
@@ -26,10 +25,10 @@ func _physics_process(delta: float) -> void:
 	direction_to_player.y = 0 # Ignorer complètement l'axe Y
 	direction_to_player = direction_to_player.normalized()
 
-	# Ne modifier que les composantes X et Z de la vélocité
+	# Appliquer la vitesse directement comme le joueur
 	if direction_to_player.length() > 0:
-		velocity.x = velocity.x + (direction_to_player.x * SPEED - velocity.x) * acceleration * delta
-		velocity.z = velocity.z + (direction_to_player.z * SPEED - velocity.z) * acceleration * delta
+		velocity.x = direction_to_player.x * SPEED
+		velocity.z = direction_to_player.z * SPEED
 
 	move_and_slide()
 

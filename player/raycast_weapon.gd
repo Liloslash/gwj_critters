@@ -2,6 +2,7 @@ extends Node
 class_name RaycastWeapon
 
 @onready var gun_shot: AudioStreamPlayer = $"../GunShot"
+@onready var fire_rate_timer: Timer = $FireRateTimer
 
 signal hit_confirmed(target, position: Vector3)
 
@@ -10,6 +11,7 @@ signal hit_confirmed(target, position: Vector3)
 @export var collision_mask: int = 1
 @export var camera_path: NodePath
 @export var player_body_path: NodePath
+
 
 # Recoil configuration
 @export var recoil_pitch_deg: float = 2.0
@@ -25,7 +27,13 @@ func _ready() -> void:
 	_camera = get_node_or_null(camera_path) as Camera3D
 	_player_body = get_node_or_null(player_body_path) as CharacterBody3D
 
-func fire() -> void:
+func fire() -> bool:
+	if not can_fire():
+		return false
+
+	# Start the timer
+	fire_rate_timer.start()
+
 	var from: Vector3 = _camera.global_transform.origin
 	var to: Vector3 = _compute_ray_end(from)
 	var space: PhysicsDirectSpaceState3D = get_viewport().world_3d.direct_space_state
@@ -34,9 +42,13 @@ func fire() -> void:
 	gun_shot.play()
 	if result.is_empty():
 		_apply_recoil()
-		return
+		return true
 	_apply_damage(result.collider)
 	_apply_recoil()
+	return true
+
+func can_fire() -> bool:
+	return fire_rate_timer.time_left <= 0.0
 
 func _compute_ray_end(from: Vector3) -> Vector3:
 	return from + (-_camera.global_transform.basis.z) * ray_distance

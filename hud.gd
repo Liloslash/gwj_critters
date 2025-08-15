@@ -6,16 +6,23 @@ class_name HUD
 @onready var crosshair_label: Label = $CenterContainer/Label
 @onready var wave_label: Label = $MarginContainer/WaveLabel
 @onready var game_over_panel: CenterContainer = $GameOver
+@onready var wave_start: CenterContainer = $WaveStart
+@onready var wave_start_label: Label = $WaveStart/WaveStartLabel
+
+@onready var wave_hud_timer: Timer = $WaveHUDTimer
 
 func _ready() -> void:
 	var player := get_tree().get_first_node_in_group("Player")
 	game_over_panel.visible = false
+	wave_start.visible = false
 
-	if player and player.has_signal("health_changed"):
-		player.health_changed.connect(_on_health_changed)
+	player.health_changed.connect(_on_health_changed)
 	_on_health_changed(player.current_health, player.max_health)
 
-	var weapon: Node = player.get_node_or_null("RaycastWeapon") if player else null
+	wave_hud_timer.one_shot = true
+	wave_hud_timer.timeout.connect(hide_wave_start)
+
+	var weapon: Node = player.get_node_or_null("MainWeapon")
 	if weapon and weapon.has_signal("hit_confirmed"):
 		weapon.connect("hit_confirmed", Callable(self, "show_hitmarker"))
 
@@ -37,11 +44,18 @@ func show_hitmarker() -> void:
 	var tween := create_tween()
 	tween.tween_property(crosshair_label, "modulate", original, 0.12).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+func show_wave_start(wave_number: int) -> void:
+	wave_start.visible = true
+	print("show_wave_start", wave_number)
+	wave_start_label.text = "Wave %d" % wave_number + " !"
+	wave_hud_timer.start()
+
+func hide_wave_start() -> void:
+	wave_start.visible = false
 
 func _on_button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().reload_current_scene()
-
 
 func game_over() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
