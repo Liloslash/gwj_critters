@@ -32,10 +32,12 @@ shader_parameter/sky_curve = 0.15
 shader_parameter/sky_energy = 1.0
 shader_parameter/sky_cover = SubResource("NoiseTexture2D_p1v5b")
 shader_parameter/sky_cover_modulate = Color(0.396889, 0.396889, 0.396889, 1)
-shader_parameter/ground_bottom_color = Color(0.206046, 0.174332, 0.137505, 1)
-shader_parameter/ground_horizon_color = Color(0.940978, 0.943081, 0.94603, 1)
-shader_parameter/ground_curve = 0.364
-shader_parameter/ground_energy = 1.545
+shader_parameter/stars_color = Color(1, 1, 0.9, 1)
+shader_parameter/stars_density = 0.3
+shader_parameter/stars_brightness = 1.5
+shader_parameter/stars_twinkle_speed = 2.0
+shader_parameter/space_color = Color(0.02, 0.02, 0.08, 1)
+shader_parameter/gradient_strength = 0.7
 shader_parameter/sun_angle_max = 31.435
 shader_parameter/sun_curve = 0.015
 shader_parameter/exposure = 0.804
@@ -46,8 +48,8 @@ shader_parameter/cloud_change_rate = 0.923
 shader_parameter/pole_blend_shape = 2.0
 shader_parameter/pole_blend_strength = 0.0
 shader_parameter/pole_blend_brightness = 0.115
-shader_parameter/horizon_blend_shape = 0.379
-shader_parameter/horizon_blend_strength = 0.12
+shader_parameter/horizon_blend_shape = 0.05
+shader_parameter/horizon_blend_strength = 0.05
 shader_parameter/horizon_blend_brightness = 0.345
 shader_parameter/horizon_blend_width = 0.0
 
@@ -57,8 +59,15 @@ sky_material = SubResource("ShaderMaterial_wygdx")
 [sub_resource type="Environment" id="Environment_c6gwx"]
 background_mode = 2
 sky = SubResource("Sky_2dftf")
-ambient_light_source = 3
+ambient_light_color = Color(0.506817, 0.1974, 0.94, 0.184314)
 glow_intensity = 2.37
+fog_enabled = true
+fog_light_color = Color(0.501473, 0.548463, 0.668115, 1)
+fog_light_energy = 0.34
+fog_aerial_perspective = 0.277
+fog_sky_affect = 0.267
+fog_height = 3.0
+fog_height_density = -0.1641
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bah7m"]
 size = Vector3(63, 0.1, 1)

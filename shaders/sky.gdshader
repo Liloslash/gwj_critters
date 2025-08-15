@@ -7,10 +7,14 @@ uniform float sky_curve : hint_range(0, 1) = 0.15;
 uniform float sky_energy = 1.0; // In Lux.
 uniform sampler2D sky_cover : filter_linear, source_color, hint_default_black;
 uniform vec4 sky_cover_modulate : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec4 ground_bottom_color : source_color = vec4(0.2, 0.169, 0.133, 1.0);
-uniform vec4 ground_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
-uniform float ground_curve : hint_range(0, 1) = 0.02;
-uniform float ground_energy = 1.0;
+
+// Stars uniforms
+uniform vec4 stars_color : source_color = vec4(1.0, 1.0, 0.9, 1.0);
+uniform float stars_density : hint_range(0.0, 1.0) = 0.3;
+uniform float stars_brightness : hint_range(0.0, 2.0) = 1.5;
+uniform float stars_twinkle_speed : hint_range(0.0, 5.0) = 2.0;
+uniform vec4 space_color : source_color = vec4(0.02, 0.02, 0.08, 1.0);
+uniform float gradient_strength : hint_range(0.0, 1.0) = 0.7;
 uniform float sun_angle_max = 30.0;
 uniform float sun_curve : hint_range(0, 1) = 0.15;
 uniform float exposure : hint_range(0, 128) = 1.0;
@@ -33,6 +37,57 @@ uniform float horizon_blend_shape : hint_range(0.0, 2.0) = 0.05; // How much the
 uniform float horizon_blend_strength : hint_range(0, 1) = 0.05; // Control blending intensity at horizon
 uniform float horizon_blend_brightness : hint_range(0.0, 1.0) = .3;
 uniform float horizon_blend_width : hint_range(0.0, 0.5) = 0.1; // Width of the horizon blend region
+
+// Fonction pour générer du bruit aléatoire
+float star_random(vec2 uv) {
+    return fract(sin(dot(uv.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
+// Génération d'étoiles
+float stars(vec2 uv, float density) {
+    // Grille pour les étoiles
+    vec2 star_grid = floor(uv * 100.0);
+    vec2 star_fract = fract(uv * 100.0);
+    
+    // Position aléatoire dans chaque cellule
+    vec2 star_pos = vec2(star_random(star_grid), star_random(star_grid + vec2(1.0, 0.0)));
+    
+    // Distance au centre de l'étoile
+    float dist = distance(star_fract, star_pos);
+    
+    // Seuil pour créer une étoile
+    float star_threshold = 1.0 - density;
+    float star_noise = star_random(star_grid + vec2(2.0, 2.0));
+    
+    if (star_noise > star_threshold) {
+        // Taille de l'étoile
+        float star_size = 0.02 + star_random(star_grid + vec2(3.0, 3.0)) * 0.03;
+        
+        // Intensité de l'étoile (sans scintillement pour l'instant)
+        float star_intensity = smoothstep(star_size, 0.0, dist);
+        
+        return star_intensity;
+    }
+    
+    return 0.0;
+}
+
+// Fonction principale pour créer le ciel étoilé
+vec3 starry_space(vec2 uv, vec3 cdir) {
+    // Génération des étoiles
+    float star_field = stars(uv, stars_density);
+    
+    // Couleur des étoiles
+    vec3 star_color = stars_color.rgb * star_field * stars_brightness;
+    
+    // Couleur de fond de l'espace
+    vec3 background = space_color.rgb;
+    
+    // Combine background et étoiles
+    return background + star_color;
+}
+
+
 
 void sky() {
     float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
@@ -122,10 +177,12 @@ void sky() {
 
     sky += (blended_noise * sky_cover_modulate.rgb) * blended_noise_texture.a * sky_cover_modulate.a * sky_energy;
 
-    // Ground blending
-    c = (v_angle - (PI * 0.5)) / (PI * 0.5);
-    vec3 ground = mix(ground_horizon_color.rgb, ground_bottom_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
-    ground *= ground_energy;
-
-    COLOR = mix(ground, sky, step(0.0, EYEDIR.y)) * exposure;
+    // Starry space effect for ground
+    vec2 space_uv = SKY_COORDS.xy * 2.0; // Zoom sur les étoiles
+    vec3 space_surface = starry_space(space_uv, EYEDIR);
+    
+    // Dégradé entre ciel et espace étoilé
+    float gradient_factor = smoothstep(-gradient_strength, 0.0, EYEDIR.y);
+    
+    COLOR = mix(space_surface, sky, gradient_factor) * exposure;
 }
