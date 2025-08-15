@@ -8,6 +8,7 @@ signal game_over
 
 @onready var damage_zone: Area3D = $DamageZone
 @onready var weapon: RaycastWeapon = $MainWeapon
+@onready var fire_gun_animation: AnimatedSprite2D = $CanvasLayer/FireGunAnimation
 
 @export var max_health = 100
 @export var current_health = 100
@@ -23,6 +24,11 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	damage_zone.body_entered.connect(_on_enemy_entered)
 	damage_zone.body_exited.connect(_on_enemy_exited)
+	fire_gun_animation.animation_finished.connect(_on_gun_animation_finished)
+	# S'assurer que l'animation est sur la frame 0 de "fire" dès le démarrage
+	fire_gun_animation.animation = "fire"
+	fire_gun_animation.frame = 0
+	fire_gun_animation.pause()
 
 func _on_enemy_entered(body):
 	if not _is_enemy(body):
@@ -79,7 +85,13 @@ func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 
 func _try_fire_weapon() -> void:
 	if weapon and weapon.has_method("fire"):
-		weapon.fire()
+		var has_fired = weapon.fire()
+		if has_fired:
+			fire_gun_animation.play("fire")
+
+func _on_gun_animation_finished() -> void:
+	fire_gun_animation.frame = 0
+	fire_gun_animation.pause()
 
 func _process_damage(delta: float) -> void:
 	if enemies_in_range.is_empty() or is_dead():

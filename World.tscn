@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=17 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b5v7mvrbkibl0" path="res://map/Arena.glb" id="3_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bqhbsi6kyt762" path="res://map/Obstacles.glb" id="3_wygdx"]
 [ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
+[ext_resource type="AudioStream" uid="uid://c27ungj3tid2y" path="res://Assets/Sons Critters/Bruitage/Gong/shovel-gong.mp3" id="10_fvag4"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -120,3 +121,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -31)
 shape = SubResource("BoxShape3D_bah7m")
 
 [node name="WaveTimer" type="Timer" parent="."]
+
+[node name="GongPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_fvag4")

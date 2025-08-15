@@ -1,13 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://bporlauvhb1m8"]
+[gd_scene load_steps=14 format=3 uid="uid://bporlauvhb1m8"]
 
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
 [ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
+[ext_resource type="Texture2D" uid="uid://drh5xetmhdnv4" path="res://Assets/Sprites/Gun-HUD.png" id="4_83hs8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xhfnw"]
 radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8kxw"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqcbf"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(1000, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gskgj"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(2000, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06mnu"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(0, 1000, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhpjh"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(1000, 1000, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83hs8"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wnvi2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8kxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqcbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gskgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06mnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhpjh")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83hs8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_xhfnw")
@@ -38,3 +94,11 @@ one_shot = true
 stream = ExtResource("3_wnvi2")
 volume_db = -20.702
 max_polyphony = 4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FireGunAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(563, 150)
+sprite_frames = SubResource("SpriteFrames_wnvi2")
+animation = &"fire"
+autoplay = "idle"

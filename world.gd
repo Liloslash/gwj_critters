@@ -1,9 +1,12 @@
 extends Node3D
 
 @onready var spawn_timer: Timer = $SpawnTimer
+@onready var wave_timer: Timer = $WaveTimer
+
 @onready var spawn_zones: Area3D = $SpawnZones
 
-@onready var wave_timer: Timer = $WaveTimer
+@onready var gong_player: AudioStreamPlayer = $GongPlayer
+
 
 @export var enemy_scene: PackedScene
 @export var enemy_scenes: Array[PackedScene] = []
@@ -42,6 +45,8 @@ func _start_next_wave() -> void:
 	print("Wave %d: %d enemies to spawn (spawn delay: %.2fs)" % [current_wave, enemies_to_spawn_this_wave, spawn_timer.wait_time])
 	_update_hud_wave_started()
 	spawn_timer.start()
+	gong_player.play()
+
 
 func _on_wave_timer_timeout() -> void:
 	_start_next_wave()
