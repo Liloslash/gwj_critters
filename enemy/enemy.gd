@@ -5,8 +5,11 @@ extends CharacterBody3D
 @export var max_health := 100
 var current_health := 100
 @export var contact_damage: int = 5
+@onready var greu: AudioStreamPlayer3D = $Greu
 
 var player: CharacterBody3D
+
+var is_dead = false
 
 func _ready() -> void:
 	add_to_group("Enemy")
@@ -19,6 +22,9 @@ func _physics_process(delta: float) -> void:
 	# Appliquer la gravité d'abord
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	if is_dead:
+		return
 
 	# Direction vers le joueur SEULEMENT sur les axes X et Z
 	var direction_to_player = player.global_position - global_position
@@ -41,4 +47,9 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	greu.play()
+	await greu.finished
 	queue_free()

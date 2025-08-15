@@ -102,3 +102,5 @@ position = Vector2(563, 150)
 sprite_frames = SubResource("SpriteFrames_wnvi2")
 animation = &"fire"
 autoplay = "idle"
+
+[node name="Footsteps-boots" type="AudioStreamPlayer" parent="."]

@@ -9,6 +9,7 @@ signal game_over
 @onready var damage_zone: Area3D = $DamageZone
 @onready var weapon: RaycastWeapon = $MainWeapon
 @onready var fire_gun_animation: AnimatedSprite2D = $CanvasLayer/FireGunAnimation
+@onready var footsteps_boots: AudioStreamPlayer = $"Footsteps-boots"
 
 @export var max_health = 100
 @export var current_health = 100
@@ -19,6 +20,7 @@ var damage_timer = 0.0
 var enemies_in_range = []
 var damage_per_enemy_default := 5
 var is_taking_damage = false
+var is_walking = false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -66,9 +68,10 @@ func _physics_process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.sd
+	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -77,6 +80,16 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+	# Gestion des sons de pas améliorée
+	var should_play_footsteps = input_dir.length() > 0 and is_on_floor() and velocity.length() > 0.1
+
+	if should_play_footsteps and not is_walking:
+		footsteps_boots.play()
+		is_walking = true
+	elif not should_play_footsteps and is_walking:
+		footsteps_boots.stop()
+		is_walking = false
 
 	_process_damage(delta)
 

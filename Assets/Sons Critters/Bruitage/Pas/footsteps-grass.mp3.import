@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cw3e160bullvv"
+path="res://.godot/imported/footsteps-grass.mp3-35428f15e25f7dde44a43a9b2fbd3861.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Pas/footsteps-grass.mp3"
+dest_files=["res://.godot/imported/footsteps-grass.mp3-35428f15e25f7dde44a43a9b2fbd3861.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8yfcvieayxll"]
+[gd_scene load_steps=7 format=3 uid="uid://c8yfcvieayxll"]
 
 [ext_resource type="Script" uid="uid://du6i6c8grpafr" path="res://enemy/enemyFast.gd" id="1_72hl8"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f083o"]
+[ext_resource type="AudioStream" uid="uid://cw3e160bullvv" path="res://Assets/Sons Critters/Bruitage/Pas/footsteps-grass.mp3" id="3_f083o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 radius = 0.4
@@ -23,7 +24,7 @@ shader_parameter/metallic = 0.0
 radius = 0.4
 height = 1.7
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="EnemyFast" type="CharacterBody3D"]
 script = ExtResource("1_72hl8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -32,3 +33,7 @@ shape = SubResource("CapsuleShape3D_gqquq")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_enemy")
 mesh = SubResource("CapsuleMesh_tt7e2")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_f083o")
+autoplay = true

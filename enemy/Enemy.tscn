@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhuko84jtt65y"]
+[gd_scene load_steps=8 format=3 uid="uid://bhuko84jtt65y"]
 
 [ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy/enemy.gd" id="1_tt7e2"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_enemy_shader"]
 [ext_resource type="AudioStream" uid="uid://cs27ub51g1iqg" path="res://Assets/Sons Critters/Bruitage/Pas/footstep-1.mp3" id="3_5p6bu"]
+[ext_resource type="AudioStream" uid="uid://bmkhduk7q3adp" path="res://Assets/Sons Critters/Bruitage/Gémissements/crit-gutural-greu.mp3" id="4_80fio"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 
@@ -31,6 +32,12 @@ shape = SubResource("CapsuleShape3D_gqquq")
 material_override = SubResource("ShaderMaterial_enemy")
 mesh = SubResource("CapsuleMesh_tt7e2")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_5p6bu")
+volume_db = -8.148
 autoplay = true
+
+[node name="Greu" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_80fio")
+volume_db = -25.0
+max_polyphony = 6
