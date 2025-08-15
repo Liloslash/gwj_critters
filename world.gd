@@ -1,9 +1,8 @@
 extends Node3D
 
 @onready var spawn_timer: Timer = $SpawnTimer
+@onready var spawn_zones: Area3D = $SpawnZones
 
-@onready var spawn_points: Node3D = $SpawnPoints
-@onready var spawn_markers: Array[Marker3D] = []
 @onready var wave_timer: Timer = $WaveTimer
 
 @export var enemy_scene: PackedScene
@@ -26,13 +25,10 @@ func _ready() -> void:
 	_configure_spawn_timer()
 	_configure_wave_timer()
 	_seed_rng()
-	_cache_spawn_markers()
 	_start_next_wave()
 
-
 func _on_spawn_timer_timeout() -> void:
-	if not _spawn_enemy_random():
-		return
+	_spawn_enemy_random()
 	_on_enemy_spawned()
 
 func _start_next_wave() -> void:
@@ -67,36 +63,6 @@ func _configure_wave_timer() -> void:
 func _seed_rng() -> void:
 	randomize()
 
-func _cache_spawn_markers() -> void:
-	spawn_markers.clear()
-	if not is_instance_valid(spawn_points):
-		return
-	for child in spawn_points.get_children():
-		if child is Marker3D:
-			spawn_markers.append(child)
-
-func _get_random_spawn_marker() -> Marker3D:
-	if spawn_markers.is_empty():
-		return null
-	var random_index: int = randi() % spawn_markers.size()
-	return spawn_markers[random_index]
-
-func _spawn_enemy_at_marker(marker: Marker3D) -> bool:
-	if marker == null:
-		return false
-	var scene_to_spawn: PackedScene = _pick_enemy_scene()
-	if scene_to_spawn == null:
-		scene_to_spawn = enemy_scene
-	if scene_to_spawn == null:
-		return false
-	var enemy_instance: Node3D = scene_to_spawn.instantiate()
-	enemy_instance.transform = marker.global_transform
-	add_child(enemy_instance)
-	enemies_alive_count += 1
-	if not enemy_instance.tree_exited.is_connected(_on_enemy_tree_exited):
-		enemy_instance.tree_exited.connect(_on_enemy_tree_exited)
-	return true
-
 func _pick_enemy_scene() -> PackedScene:
 	if enemy_scenes == null:
 		return null
@@ -106,9 +72,21 @@ func _pick_enemy_scene() -> PackedScene:
 	var idx := randi() % count
 	return enemy_scenes[idx]
 
-func _spawn_enemy_random() -> bool:
-	var marker: Marker3D = _get_random_spawn_marker()
-	return _spawn_enemy_at_marker(marker)
+func _spawn_enemy_random() -> void:
+	var position: Vector3 = spawn_zones.get_random_position()
+	return _spawn_enemy_at_position(position)
+
+func _spawn_enemy_at_position(position: Vector3) -> void:
+	var scene_to_spawn: PackedScene = _pick_enemy_scene()
+	var enemy_instance: Node3D = scene_to_spawn.instantiate()
+	enemy_instance.transform = Transform3D(Basis(), position)
+	add_child(enemy_instance)
+
+	# Connecter le signal de mort de l'ennemi
+	enemy_instance.tree_exited.connect(_on_enemy_died)
+
+	# Incrémenter le compteur d'ennemis vivants
+	enemies_alive_count += 1
 
 func _finish_wave() -> void:
 	if is_between_waves:
@@ -118,17 +96,23 @@ func _finish_wave() -> void:
 	wave_timer.stop()
 	wave_timer.start(wave_pause_seconds)
 
-func _on_enemy_tree_exited() -> void:
+func _on_enemy_died() -> void:
 	enemies_alive_count = max(0, enemies_alive_count - 1)
+	print("Enemy died. Enemies alive: %d" % enemies_alive_count)
+	# Vérifier si la vague est terminée (tous les ennemis spawned ET tous morts)
 	if spawn_timer.is_stopped() and enemies_alive_count == 0:
 		_finish_wave()
 
 func _on_enemy_spawned() -> void:
 	enemies_spawned_in_wave += 1
+	print("Spawned enemy %d/%d this wave. Enemies alive: %d" % [enemies_spawned_in_wave, enemies_to_spawn_this_wave, enemies_alive_count])
 	if enemies_spawned_in_wave < enemies_to_spawn_this_wave:
 		return
+	# Tous les ennemis de la vague ont été spawnés, arrêter le timer de spawn
 	spawn_timer.stop()
-	if enemies_alive_count <= 0:
+	print("All enemies spawned for wave %d. Waiting for all to die..." % current_wave)
+	# Vérifier si la vague est déjà terminée (cas où les ennemis meurent très vite)
+	if enemies_alive_count == 0:
 		_finish_wave()
 
 func _update_hud_wave_started() -> void:

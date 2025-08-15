@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=16 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://b5v7mvrbkibl0" path="res://map/Arena.glb" id="3_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://bqhbsi6kyt762" path="res://map/Obstacles.glb" id="3_wygdx"]
+[ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -59,6 +60,9 @@ sky = SubResource("Sky_2dftf")
 ambient_light_source = 3
 glow_intensity = 2.37
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bah7m"]
+size = Vector3(63, 0.1, 1)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_p1v5b")
 enemy_scene = ExtResource("2_2dftf")
@@ -86,19 +90,24 @@ shadow_enabled = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
-[node name="SpawnPoints" type="Node3D" parent="."]
+[node name="SpawnZones" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("9_fv4w7")
 
-[node name="SpawnPoint" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.5, 28)
-gizmo_extents = 0.53
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnZones"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31, 4.5, 0)
+shape = SubResource("BoxShape3D_bah7m")
 
-[node name="SpawnPoint2" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.5, 28)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SpawnZones"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -31, 4.5, 0)
+shape = SubResource("BoxShape3D_bah7m")
 
-[node name="SpawnPoint3" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.5, -28)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 31)
+shape = SubResource("BoxShape3D_bah7m")
 
-[node name="SpawnPoint4" type="Marker3D" parent="SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.5, -28)
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="SpawnZones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -31)
+shape = SubResource("BoxShape3D_bah7m")
 
 [node name="WaveTimer" type="Timer" parent="."]

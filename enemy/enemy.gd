@@ -17,18 +17,19 @@ func _physics_process(delta: float) -> void:
 	if not player:
 		return
 
-	var direction = (player.global_position - global_position).normalized()
-
-	direction.y = 0
-	direction = direction.normalized()
-
-	if direction.length() > 0:
-		velocity = velocity.move_toward(direction * SPEED, acceleration * delta)
-	else:
-		velocity = velocity.move_toward(Vector3.ZERO, acceleration * delta)
-	# Add the gravity.
+	# Appliquer la gravité d'abord
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	# Direction vers le joueur SEULEMENT sur les axes X et Z
+	var direction_to_player = player.global_position - global_position
+	direction_to_player.y = 0 # Ignorer complètement l'axe Y
+	direction_to_player = direction_to_player.normalized()
+
+	# Ne modifier que les composantes X et Z de la vélocité
+	if direction_to_player.length() > 0:
+		velocity.x = velocity.x + (direction_to_player.x * SPEED - velocity.x) * acceleration * delta
+		velocity.z = velocity.z + (direction_to_player.z * SPEED - velocity.z) * acceleration * delta
 
 	move_and_slide()
 
