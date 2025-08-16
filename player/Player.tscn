@@ -69,7 +69,6 @@ animations = [{
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_xhfnw")
-current_health = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_0rwas")
