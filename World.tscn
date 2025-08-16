@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=18 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://cxlnjf0w6uq4o" path="res://healing/healing_points.gd" id="9_f5c0m"]
 [ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
 [ext_resource type="AudioStream" uid="uid://c27ungj3tid2y" path="res://Assets/Sons Critters/Bruitage/Gong/shovel-gong.mp3" id="10_fvag4"]
-[ext_resource type="PackedScene" uid="uid://xlowewwvo1os" path="res://healing/healing_point.tscn" id="12_f5c0m"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -150,6 +149,3 @@ shape = SubResource("BoxShape3D_bah7m")
 
 [node name="GongPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_fvag4")
-
-[node name="HealingPoint" parent="." instance=ExtResource("12_f5c0m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656775, -2.92304)
