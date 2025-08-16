@@ -94,7 +94,6 @@ mesh = SubResource("CapsuleMesh_tt7e2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_02vix")
-volume_db = -2.0
 max_db = 2.0
 autoplay = true
 parameters/looping = true
@@ -109,3 +108,4 @@ frame_progress = 0.0227295
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_ne5co")
+volume_db = -20.0
