@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f083o"]
 [ext_resource type="AudioStream" uid="uid://dwmm8aya6r6d" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-InsectV2.mp3" id="3_02vix"]
 [ext_resource type="Texture2D" uid="uid://drm6eojw50utw" path="res://Assets/Sprites/PapillonV2.png" id="4_02vix"]
-[ext_resource type="AudioStream" uid="uid://bmkhduk7q3adp" path="res://Assets/Sons Critters/Bruitage/Gémissements/crit-gutural-greu.mp3" id="5_ne5co"]
+[ext_resource type="AudioStream" uid="uid://c46ocouim68yo" path="res://enemy/PapillonV1die.mp3" id="5_ne5co"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 radius = 0.4
@@ -94,7 +94,6 @@ mesh = SubResource("CapsuleMesh_tt7e2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_02vix")
-volume_db = -2.0
 max_db = 2.0
 autoplay = true
 parameters/looping = true
@@ -109,4 +108,4 @@ frame_progress = 0.0227295
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_ne5co")
-volume_db = -10.0
+volume_db = -20.0

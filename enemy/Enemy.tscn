@@ -91,13 +91,13 @@ mesh = SubResource("CapsuleMesh_tt7e2")
 
 [node name="Wingflap-insect" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_80fio")
-volume_db = 1.5
+volume_db = 8.0
 autoplay = true
 parameters/looping = true
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_55d7h")
-volume_db = -25.0
+volume_db = -20.0
 max_polyphony = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
