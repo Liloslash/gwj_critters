@@ -27,4 +27,4 @@ material_override = SubResource("ShaderMaterial_b2ar6")
 
 [node name="HealingSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_p14hl")
-volume_db = -25.0
+volume_db = -31.667

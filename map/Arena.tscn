@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv0x3m8qr4a7t"]
+
+[ext_resource type="PackedScene" uid="uid://b5v7mvrbkibl0" path="res://map/Arena.glb" id="1_arena"]
+[ext_resource type="Shader" uid="uid://eks8kuv7ovp3" path="res://shaders/floor.gdshader" id="2_shader"]
+[ext_resource type="Shader" uid="uid://bipab22ptqytq" path="res://map/walls.gdshader" id="3_td4e4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vby6s"]
+render_priority = 0
+shader = ExtResource("2_shader")
+shader_parameter/grass_light = Color(0.00672, 0.02, 0.0034, 1)
+shader_parameter/grass_dark = Color(0.15456, 0.46, 0.0782, 1)
+shader_parameter/tile_scale = 4.7
+shader_parameter/wind_strength = 0.27
+shader_parameter/variation_strength = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhbc4"]
+render_priority = 0
+shader = ExtResource("3_td4e4")
+shader_parameter/base_color = Color(0.664109, 0.475583, 0.311417, 1)
+shader_parameter/mortar_color = Color(0.3, 0.25, 0.2, 1)
+shader_parameter/highlight_color = Color(0.8, 0.7, 0.5, 1)
+shader_parameter/brick_width = 1.828
+shader_parameter/brick_height = 1.0
+shader_parameter/mortar_width = 0.076
+shader_parameter/glow_intensity = 0.197
+shader_parameter/time_speed = 0.902
+shader_parameter/roughness_variation = 1.0
+shader_parameter/base_roughness = 1.0
+shader_parameter/base_metallic = 0.842
+
+[node name="Arena" instance=ExtResource("1_arena")]
+
+[node name="Map" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_vby6s")
+surface_material_override/1 = SubResource("ShaderMaterial_yhbc4")

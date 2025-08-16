@@ -24,10 +24,11 @@ var enemies_to_spawn_this_wave: int = 0
 var enemies_spawned_in_wave: int = 0
 var enemies_alive_count: int = 0
 var is_between_waves: bool = false
-var HUD: HUD = null
+var hud: HUD = null
 
 func _ready() -> void:
-	HUD = get_node_or_null("HUD")
+	hud = get_node_or_null("HUD")
+	AudioManager.play_music()
 	_configure_spawn_timer()
 	_configure_wave_timer()
 	_seed_rng()
@@ -85,6 +86,10 @@ func _spawn_enemy_random() -> void:
 	enemies_alive_count += 1
 
 func _finish_wave() -> void:
+	# Check if we're still in the scene tree (avoid errors during scene reload)
+	if not is_inside_tree():
+		return
+
 	heal_points.spawn_healing_point()
 	if is_between_waves:
 		return
@@ -94,6 +99,10 @@ func _finish_wave() -> void:
 	wave_timer.start(wave_pause_seconds)
 
 func _on_enemy_died() -> void:
+	# Check if we're still in the scene tree (avoid errors during scene reload)
+	if not is_inside_tree():
+		return
+
 	enemies_alive_count = max(0, enemies_alive_count - 1)
 	if spawn_timer.is_stopped() and enemies_alive_count == 0:
 		_finish_wave()
@@ -108,11 +117,11 @@ func _on_enemy_spawned() -> void:
 		_finish_wave()
 
 func _update_hud_wave_started() -> void:
-	HUD.set_wave("Wave %d" % current_wave)
-	HUD.show_wave_start(current_wave)
+	hud.set_wave("Wave %d" % current_wave)
+	hud.show_wave_start(current_wave)
 
 func _update_hud_wave_ended() -> void:
-	HUD.set_wave("Waiting for next wave...")
+	hud.set_wave("Waiting for next wave...")
 
 # --- Difficulty/Scaling Logic ---
 

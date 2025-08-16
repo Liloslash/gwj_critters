@@ -10,6 +10,7 @@ signal game_over
 @onready var weapon: RaycastWeapon = $MainWeapon
 @onready var fire_gun_animation: AnimatedSprite2D = $CanvasLayer/FireGunAnimation
 @onready var footsteps_boots: AudioStreamPlayer = $"Footsteps-boots"
+@onready var death_scream: AudioStreamPlayer = $DeathScream
 
 @onready var heartbeat_player: AudioStreamPlayer3D = $HeartbeatPlayer
 
@@ -156,6 +157,8 @@ func heal(amount: int) -> void:
 
 func die() -> void:
 	velocity = Vector3.ZERO
+	death_scream.play()
+	AudioManager.stop_music()
 	set_process_input(false)
 	set_physics_process(false)
 

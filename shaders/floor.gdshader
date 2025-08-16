@@ -1,30 +1,21 @@
 shader_type spatial;
 
-// Couleurs de base au lieu de textures
-uniform vec3 dirt_color : source_color = vec3(0.35, 0.25, 0.15);
-uniform vec3 grass_color : source_color = vec3(0.15, 0.4, 0.08);
+// Couleurs d'herbe
+uniform vec3 grass_light : source_color = vec3(0.2, 0.6, 0.1);
+uniform vec3 grass_dark : source_color = vec3(0.1, 0.3, 0.05);
 
-// Paramètres de mélange
-uniform float grass_threshold : hint_range(0.0, 1.0) = 0.4;
-uniform float blend_sharpness : hint_range(0.1, 10.0) = 2.0;
-
-// Paramètres de bruit pour la variation
-uniform float noise_scale : hint_range(0.1, 10.0) = 1.0;
-uniform float noise_strength : hint_range(0.0, 1.0) = 0.5;
-
-// Paramètres de matériau
-uniform float dirt_roughness : hint_range(0.0, 1.0) = 0.8;
-uniform float grass_roughness : hint_range(0.0, 1.0) = 0.9;
+// Paramètres simples
+uniform float tile_scale : hint_range(1.0, 16.0, 0.1) = 6.0;
+uniform float wind_strength : hint_range(0.0, 0.5, 0.01) = 0.1;
+uniform float variation_strength : hint_range(0.0, 1.0, 0.1) = 0.3;
 
 varying vec3 world_position;
-varying vec3 world_normal;
 
-// Fonction de bruit simple
+// Fonction de bruit simple et efficace
 float random(vec2 uv) {
     return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-// Bruit de Perlin simplifié
 float noise(vec2 uv) {
     vec2 i = floor(uv);
     vec2 f = fract(uv);
@@ -39,53 +30,34 @@ float noise(vec2 uv) {
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 
-// Fonction de mélange smooth
-float smooth_mix(float value, float threshold, float sharpness) {
-    return smoothstep(threshold - 1.0/sharpness, threshold + 1.0/sharpness, value);
-}
-
 void vertex() {
     world_position = VERTEX;
-    world_normal = NORMAL;
 }
 
 void fragment() {
-    // Calcul du facteur de mélange basé sur la pente et le bruit
-    float slope = 1.0 - abs(dot(world_normal, vec3(0.0, 1.0, 0.0)));
+    // UV avec échelle
+    vec2 grass_uv = world_position.xz * tile_scale;
     
-    // Ajout de variation avec du bruit
-    vec2 noise_uv = world_position.xz * noise_scale;
-    float noise_value = noise(noise_uv) * noise_strength;
+    // Bruit de base pour la variation d'herbe
+    float grass_noise = noise(grass_uv);
     
-    // Facteur de mélange combiné
-    float blend_factor = slope + noise_value;
+    // Effet de vent subtil avec le temps
+    vec2 wind_uv = grass_uv + vec2(TIME * 0.3, TIME * 0.1) * wind_strength;
+    float wind_noise = noise(wind_uv) * 0.3;
     
-    // Calcul des poids de mélange (seulement herbe et terre)
-    float grass_weight = 1.0 - smooth_mix(blend_factor, grass_threshold, blend_sharpness);
-    float dirt_weight = 1.0 - grass_weight;
+    // Mélange des couleurs d'herbe
+    float grass_variation = (grass_noise + wind_noise) * variation_strength;
+    vec3 final_color = mix(grass_dark, grass_light, 0.5 + grass_variation);
     
-    // Mélange final des couleurs
-    vec3 final_color = dirt_color * dirt_weight + grass_color * grass_weight;
+    // Détails fins pour plus de réalisme
+    float detail = noise(grass_uv * 4.0) * 0.1;
+    final_color += vec3(0.0, detail, detail * 0.5);
     
-    // Calcul de la rugosité finale
-    float final_roughness = dirt_roughness * dirt_weight + grass_roughness * grass_weight;
-    
-    // Assombrissement des zones en pente pour plus de réalisme
-    float shadow_factor = 1.0 - slope * 0.2;
-    final_color *= shadow_factor;
-    
-    // Ajout de variation de couleur avec le bruit pour plus de détails
-    vec2 detail_uv = world_position.xz * noise_scale * 3.0;
-    float detail_noise = noise(detail_uv) * 0.15;
-    final_color *= (1.0 + detail_noise);
-    
-    // Variation supplémentaire pour l'herbe
-    if (grass_weight > 0.5) {
-        float grass_variation = noise(world_position.xz * 8.0) * 0.1;
-        final_color += vec3(0.0, grass_variation, -grass_variation * 0.5);
-    }
+    // Variation de brillance selon les zones
+    float brightness_variation = noise(grass_uv * 0.5) * 0.2 + 0.9;
+    final_color *= brightness_variation;
     
     ALBEDO = final_color;
-    ROUGHNESS = final_roughness;
+    ROUGHNESS = 0.85;
     METALLIC = 0.0;
 }

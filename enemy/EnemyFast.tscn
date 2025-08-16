@@ -36,6 +36,6 @@ mesh = SubResource("CapsuleMesh_tt7e2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_f083o")
-volume_db = -15.0
+volume_db = -20.185
 max_db = 2.0
 autoplay = true

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8h4n2nar5k1p"]
+
+[ext_resource type="PackedScene" uid="uid://bqhbsi6kyt762" path="res://map/Obstacles.glb" id="1_obstacles"]
+[ext_resource type="Shader" uid="uid://cla15sopsy5ac" path="res://map/obstacles.gdshader" id="2_88yqm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7010t"]
+render_priority = 0
+shader = ExtResource("2_88yqm")
+shader_parameter/metal_color = Color(0.7, 0.75, 0.8, 1)
+shader_parameter/metallic_value = 1.2
+shader_parameter/roughness_value = 0.15
+shader_parameter/edge_darkening = 0.3
+shader_parameter/detail_scale = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1o0yy"]
+render_priority = 0
+shader = ExtResource("2_88yqm")
+shader_parameter/metal_color = Color(0.7, 0.75, 0.8, 1)
+shader_parameter/metallic_value = 0.891
+shader_parameter/roughness_value = 0.449
+shader_parameter/edge_darkening = 0.516
+shader_parameter/detail_scale = 7.562
+
+[node name="Obstacles" instance=ExtResource("1_obstacles")]
+
+[node name="Obstacles " parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_7010t")
+surface_material_override/1 = SubResource("ShaderMaterial_1o0yy")

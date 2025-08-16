@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bporlauvhb1m8"]
+[gd_scene load_steps=16 format=3 uid="uid://bporlauvhb1m8"]
 
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
 [ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
 [ext_resource type="Texture2D" uid="uid://drh5xetmhdnv4" path="res://Assets/Sprites/Gun-HUD.png" id="4_83hs8"]
+[ext_resource type="AudioStream" uid="uid://cnxna2q2hfv33" path="res://Assets/Sons Critters/Bruitage/Gémissements/young-male-scream.mp3" id="5_aqcbf"]
 [ext_resource type="AudioStream" uid="uid://dlb06f6iddasv" path="res://Assets/Sons Critters/Bruitage/Dégats/Heartbeat.mp3" id="5_x8kxw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
@@ -68,6 +69,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_xhfnw")
+current_health = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_0rwas")
@@ -104,6 +106,10 @@ animation = &"fire"
 autoplay = "idle"
 
 [node name="Footsteps-boots" type="AudioStreamPlayer" parent="."]
+
+[node name="DeathScream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_aqcbf")
+volume_db = -26.0
 
 [node name="HeartbeatPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_x8kxw")
