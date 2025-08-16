@@ -7,11 +7,13 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vby6s"]
 render_priority = 0
 shader = ExtResource("2_shader")
-shader_parameter/grass_light = Color(0.00672, 0.02, 0.0034, 1)
-shader_parameter/grass_dark = Color(0.15456, 0.46, 0.0782, 1)
-shader_parameter/tile_scale = 4.7
-shader_parameter/wind_strength = 0.27
-shader_parameter/variation_strength = 0.3
+shader_parameter/grass_color = Color(0.0238333, 0.13, 0, 1)
+shader_parameter/dirt_color = Color(0.29, 0.174, 0, 1)
+shader_parameter/accent_color = Color(0.3, 0.2502, 0.051, 1)
+shader_parameter/tile_scale = 3.8
+shader_parameter/grass_coverage = 0.6
+shader_parameter/pattern_size = 0.5
+shader_parameter/cartoon_smoothness = 0.06
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yhbc4"]
 render_priority = 0
@@ -31,5 +33,6 @@ shader_parameter/base_metallic = 0.842
 [node name="Arena" instance=ExtResource("1_arena")]
 
 [node name="Map" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0015831)
 surface_material_override/0 = SubResource("ShaderMaterial_vby6s")
 surface_material_override/1 = SubResource("ShaderMaterial_yhbc4")

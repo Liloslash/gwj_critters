@@ -1,13 +1,15 @@
 shader_type spatial;
 
-// Couleurs d'herbe
-uniform vec3 grass_light : source_color = vec3(0.2, 0.6, 0.1);
-uniform vec3 grass_dark : source_color = vec3(0.1, 0.3, 0.05);
+// Couleurs cartoon
+uniform vec3 grass_color : source_color = vec3(0.3, 0.8, 0.2);
+uniform vec3 dirt_color : source_color = vec3(0.6, 0.4, 0.2);
+uniform vec3 accent_color : source_color = vec3(0.2, 0.6, 0.1);
 
 // Paramètres simples
-uniform float tile_scale : hint_range(1.0, 16.0, 0.1) = 6.0;
-uniform float wind_strength : hint_range(0.0, 0.5, 0.01) = 0.1;
-uniform float variation_strength : hint_range(0.0, 1.0, 0.1) = 0.3;
+uniform float tile_scale : hint_range(1.0, 10.0, 0.1) = 4.0;
+uniform float grass_coverage : hint_range(0.0, 1.0, 0.1) = 0.7;
+uniform float pattern_size : hint_range(0.5, 3.0, 0.1) = 1.5;
+uniform float cartoon_smoothness : hint_range(0.01, 0.3, 0.01) = 0.1;
 
 varying vec3 world_position;
 
@@ -30,34 +32,71 @@ float noise(vec2 uv) {
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 
+// Fonction pour créer des formes organiques simples
+float organic_shape(vec2 uv) {
+    // Plusieurs couches de bruit pour créer des formes naturelles
+    float shape1 = noise(uv * pattern_size);
+    float shape2 = noise(uv * pattern_size * 2.0 + vec2(100.0)) * 0.5;
+    float shape3 = noise(uv * pattern_size * 4.0 + vec2(200.0)) * 0.25;
+    
+    return shape1 + shape2 + shape3;
+}
+
 void vertex() {
     world_position = VERTEX;
 }
 
 void fragment() {
-    // UV avec échelle
-    vec2 grass_uv = world_position.xz * tile_scale;
+    // UV de base
+    vec2 base_uv = world_position.xz * tile_scale;
     
-    // Bruit de base pour la variation d'herbe
-    float grass_noise = noise(grass_uv);
+    // Créer des zones d'herbe et de terre avec des formes organiques
+    float terrain_shape = organic_shape(base_uv);
     
-    // Effet de vent subtil avec le temps
-    vec2 wind_uv = grass_uv + vec2(TIME * 0.3, TIME * 0.1) * wind_strength;
-    float wind_noise = noise(wind_uv) * 0.3;
+    // Déterminer si c'est de l'herbe ou de la terre (style cartoon avec transitions nettes)
+    float grass_mask = smoothstep(1.0 - grass_coverage - cartoon_smoothness, 
+                                  1.0 - grass_coverage + cartoon_smoothness, 
+                                  terrain_shape);
     
-    // Mélange des couleurs d'herbe
-    float grass_variation = (grass_noise + wind_noise) * variation_strength;
-    vec3 final_color = mix(grass_dark, grass_light, 0.5 + grass_variation);
+    // Couleur de base de la terre
+    vec3 dirt = dirt_color;
     
-    // Détails fins pour plus de réalisme
-    float detail = noise(grass_uv * 4.0) * 0.1;
-    final_color += vec3(0.0, detail, detail * 0.5);
+    // Variation de la terre
+    float dirt_variation = noise(base_uv * 3.0);
+    dirt = mix(dirt, dirt * 1.2, dirt_variation * 0.3);
     
-    // Variation de brillance selon les zones
-    float brightness_variation = noise(grass_uv * 0.5) * 0.2 + 0.9;
-    final_color *= brightness_variation;
+    // Ajouter des petites pierres dans la terre
+    float pebbles = noise(base_uv * 8.0);
+    pebbles = smoothstep(0.7, 0.9, pebbles);
+    dirt = mix(dirt, dirt * 0.8, pebbles * 0.4);
+    
+    // Couleur de base de l'herbe
+    vec3 grass = grass_color;
+    
+    // Variation de l'herbe avec des zones plus claires et plus sombres
+    float grass_variation = noise(base_uv * 2.0);
+    grass = mix(grass, accent_color, grass_variation * 0.4);
+    
+    // Ajouter des "touffes" d'herbe plus dense
+    float grass_tufts = noise(base_uv * 6.0);
+    grass_tufts = smoothstep(0.6, 0.8, grass_tufts);
+    grass = mix(grass, grass * 1.3, grass_tufts * 0.5);
+    
+    // Ajouter des détails fins à l'herbe
+    float grass_detail = noise(base_uv * 12.0) * 0.1;
+    grass += vec3(0.0, grass_detail, grass_detail * 0.5);
+    
+    // Transition entre herbe et terre
+    vec3 final_color = mix(dirt, grass, grass_mask);
+    
+    // Ajouter une variation globale de luminosité pour le style cartoon
+    float global_brightness = noise(base_uv * 0.5) * 0.1 + 0.95;
+    final_color *= global_brightness;
+    
+    // Saturation légèrement augmentée pour l'effet cartoon
+    final_color = mix(vec3(dot(final_color, vec3(0.299, 0.587, 0.114))), final_color, 1.2);
     
     ALBEDO = final_color;
-    ROUGHNESS = 0.85;
+    ROUGHNESS = mix(0.98, 0.95, grass_mask); // Terre et herbe très mates, pas de brillance
     METALLIC = 0.0;
 }
