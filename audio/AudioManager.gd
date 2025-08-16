@@ -15,7 +15,7 @@ func _ready():
 	# Configuration
 	music_player.autoplay = true
 
-	music_player.volume_db = -15
+	music_player.volume_db = -18
 
 	# Démarrer la musique
 	music_player.play()
