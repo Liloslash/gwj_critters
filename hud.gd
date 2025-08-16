@@ -2,7 +2,6 @@ extends CanvasLayer
 class_name HUD
 
 @onready var health_bar: ProgressBar = $HBoxContainer/ProgressBar
-@onready var value_label: Label = $HBoxContainer/Value
 @onready var crosshair_label: Label = $CenterContainer/Label
 @onready var wave_label: Label = $MarginContainer/WaveLabel
 @onready var game_over_panel: CenterContainer = $GameOver
@@ -17,7 +16,6 @@ func _ready() -> void:
 	wave_start.visible = false
 
 	player.health_changed.connect(_on_health_changed)
-	_on_health_changed(player.current_health, player.max_health)
 
 	wave_hud_timer.one_shot = true
 	wave_hud_timer.timeout.connect(hide_wave_start)
@@ -31,10 +29,8 @@ func _ready() -> void:
 func set_wave(wave_label_value: String) -> void:
 	wave_label.text = wave_label_value
 
-func _on_health_changed(current: int, max_value: int) -> void:
-	health_bar.max_value = max_value
+func _on_health_changed(current: int) -> void:
 	health_bar.value = current
-	value_label.text = str(current, "/", max_value)
 
 func show_hitmarker() -> void:
 	if not is_instance_valid(crosshair_label):

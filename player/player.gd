@@ -138,27 +138,28 @@ func _is_enemy(body) -> bool:
 
 func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
-	emit_signal("health_changed", current_health, max_health)
-	
+	emit_signal("health_changed", current_health)
+
 	if current_health < max_health * 0.25:
 		if not heartbeat_player.playing:
 			heartbeat_player.play()
 	else:
 		if heartbeat_player.playing:
 			heartbeat_player.stop()
-	
+
 	if current_health <= 0:
 		die()
 
 func heal(amount: int) -> void:
 	current_health = min(max_health, current_health + amount)
+	emit_signal("health_changed", current_health)
 
 func die() -> void:
 	velocity = Vector3.ZERO
 	set_process_input(false)
 	set_physics_process(false)
-	
+
 	if heartbeat_player.playing:
 		heartbeat_player.stop()
-	
+
 	game_over.emit()
