@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8yfcvieayxll"]
+[gd_scene load_steps=15 format=3 uid="uid://c8yfcvieayxll"]
 
 [ext_resource type="Script" uid="uid://du6i6c8grpafr" path="res://enemy/enemyFast.gd" id="1_72hl8"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f083o"]
 [ext_resource type="AudioStream" uid="uid://cw3e160bullvv" path="res://Assets/Sons Critters/Bruitage/Pas/footsteps-grass.mp3" id="3_f083o"]
+[ext_resource type="Texture2D" uid="uid://drm6eojw50utw" path="res://Assets/Sprites/PapillonV2.png" id="4_02vix"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 radius = 0.4
@@ -24,6 +25,61 @@ shader_parameter/metallic = 0.0
 radius = 0.4
 height = 1.7
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne5co"]
+atlas = ExtResource("4_02vix")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsw1p"]
+atlas = ExtResource("4_02vix")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk1p3"]
+atlas = ExtResource("4_02vix")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uke40"]
+atlas = ExtResource("4_02vix")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfxxc"]
+atlas = ExtResource("4_02vix")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj574"]
+atlas = ExtResource("4_02vix")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5684j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne5co")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsw1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk1p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uke40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfxxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj574")
+}],
+"loop": true,
+"name": &"Wingflapanim2",
+"speed": 40.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="EnemyFast" type="CharacterBody3D"]
 script = ExtResource("1_72hl8")
 
@@ -31,6 +87,7 @@ script = ExtResource("1_72hl8")
 shape = SubResource("CapsuleShape3D_gqquq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_enemy")
 mesh = SubResource("CapsuleMesh_tt7e2")
 
@@ -39,3 +96,10 @@ stream = ExtResource("3_f083o")
 volume_db = -20.185
 max_db = 2.0
 autoplay = true
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_5684j")
+animation = &"Wingflapanim2"
+frame = 1
+frame_progress = 0.0227295
