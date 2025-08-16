@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du6i6c8grpafr" path="res://enemy/enemyFast.gd" id="1_72hl8"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f083o"]
-[ext_resource type="AudioStream" uid="uid://cw3e160bullvv" path="res://Assets/Sons Critters/Bruitage/Pas/footsteps-grass.mp3" id="3_f083o"]
+[ext_resource type="AudioStream" uid="uid://dwmm8aya6r6d" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-InsectV2.mp3" id="3_02vix"]
 [ext_resource type="Texture2D" uid="uid://drm6eojw50utw" path="res://Assets/Sprites/PapillonV2.png" id="4_02vix"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
@@ -92,10 +92,11 @@ material_override = SubResource("ShaderMaterial_enemy")
 mesh = SubResource("CapsuleMesh_tt7e2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_f083o")
-volume_db = -20.185
+stream = ExtResource("3_02vix")
+volume_db = -2.0
 max_db = 2.0
 autoplay = true
+parameters/looping = true
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 2

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwmm8aya6r6d"
+path="res://.godot/imported/Wingflap-InsectV2.mp3-e7060adc2d2bf3fc37f7bfa8f69ecda1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-InsectV2.mp3"
+dest_files=["res://.godot/imported/Wingflap-InsectV2.mp3-e7060adc2d2bf3fc37f7bfa8f69ecda1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
