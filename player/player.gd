@@ -14,6 +14,9 @@ signal game_over
 
 @onready var heartbeat_player: AudioStreamPlayer3D = $HeartbeatPlayer
 
+# Référence au ColorRect pour l'effet de dégâts
+@onready var damage_vignette: ColorRect = $DamageAnimation/ColorRect
+
 @export var max_health = 100
 @export var current_health = 100
 @export var damage_per_tick = 5
@@ -25,6 +28,10 @@ var damage_per_enemy_default := 5
 var is_taking_damage = false
 var is_walking = false
 
+# Variables pour l'effet de flash de dégâts
+var damage_effect_tween: Tween
+var damage_flash_duration = 0.08
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	damage_zone.body_entered.connect(_on_enemy_entered)
@@ -34,6 +41,11 @@ func _ready() -> void:
 	fire_gun_animation.animation = "fire"
 	fire_gun_animation.frame = 0
 	fire_gun_animation.pause()
+
+	# Initialiser l'effet de dégâts (invisible au départ)
+	if damage_vignette:
+		damage_vignette.color = Color.RED
+		damage_vignette.color.a = 0.0
 
 func _on_enemy_entered(body):
 	if not _is_enemy(body):
@@ -141,6 +153,9 @@ func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
 	emit_signal("health_changed", current_health)
 
+	# Déclencher l'effet de vignettage rouge
+	damage_animation()
+
 	if current_health < max_health * 0.25:
 		if not heartbeat_player.playing:
 			heartbeat_player.play()
@@ -166,3 +181,17 @@ func die() -> void:
 		heartbeat_player.stop()
 
 	game_over.emit()
+
+func damage_animation() -> void:
+	# Arrêter le tween précédent s'il existe
+	if damage_effect_tween:
+		damage_effect_tween.kill()
+
+	# Créer un nouveau tween
+	damage_effect_tween = create_tween()
+	damage_effect_tween.set_ease(Tween.EASE_OUT)
+	damage_effect_tween.set_trans(Tween.TRANS_QUART)
+
+	# Flash rouge simple: apparition rapide puis disparition
+	damage_effect_tween.tween_property(damage_vignette, "color:a", 0.4, 0.05)
+	damage_effect_tween.tween_property(damage_vignette, "color:a", 0.0, damage_flash_duration)

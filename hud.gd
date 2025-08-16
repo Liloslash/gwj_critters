@@ -42,7 +42,6 @@ func show_hitmarker() -> void:
 
 func show_wave_start(wave_number: int) -> void:
 	wave_start.visible = true
-	print("show_wave_start", wave_number)
 	wave_start_label.text = "Wave %d" % wave_number + " !"
 	wave_hud_timer.start()
 

@@ -44,7 +44,6 @@ func _start_next_wave() -> void:
 	enemies_spawned_in_wave = 0
 	enemies_to_spawn_this_wave = _compute_enemy_count_for_wave(current_wave)
 	spawn_timer.wait_time = _compute_spawn_interval_for_wave(current_wave)
-	print("Wave %d: %d enemies to spawn (spawn delay: %.2fs)" % [current_wave, enemies_to_spawn_this_wave, spawn_timer.wait_time])
 	_update_hud_wave_started()
 	spawn_timer.start()
 	gong_player.play()
@@ -109,7 +108,6 @@ func _on_enemy_died() -> void:
 
 func _on_enemy_spawned() -> void:
 	enemies_spawned_in_wave += 1
-	print("Spawned enemy %d/%d this wave. Enemies alive: %d" % [enemies_spawned_in_wave, enemies_to_spawn_this_wave, enemies_alive_count])
 	if enemies_spawned_in_wave < enemies_to_spawn_this_wave:
 		return
 	spawn_timer.stop()
