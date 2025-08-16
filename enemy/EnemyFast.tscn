@@ -101,5 +101,6 @@ autoplay = true
 billboard = 2
 sprite_frames = SubResource("SpriteFrames_5684j")
 animation = &"Wingflapanim2"
+autoplay = "Wingflapanim2"
 frame = 1
 frame_progress = 0.0227295
