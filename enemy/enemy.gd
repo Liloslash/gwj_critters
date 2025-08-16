@@ -1,41 +1,37 @@
 extends CharacterBody3D
 
-
 @export var SPEED = 3.0
 @export var max_health := 100
 var current_health := 100
 @export var contact_damage: int = 5
+
 @onready var greu: AudioStreamPlayer3D = $Greu
+@onready var anim_sprite: AnimatedSprite3D = $AnimatedSprite3D
 
 var player: CharacterBody3D
-
 var is_dead = false
 
 func _ready() -> void:
 	add_to_group("Enemy")
 	player = get_tree().get_first_node_in_group("Player")
+	anim_sprite.play("Wingflapanim")
 
 func _physics_process(delta: float) -> void:
 	if not player:
 		return
-
 	# Appliquer la gravité d'abord
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
 	if is_dead:
 		return
-
 	# Direction vers le joueur SEULEMENT sur les axes X et Z
 	var direction_to_player = player.global_position - global_position
 	direction_to_player.y = 0 # Ignorer complètement l'axe Y
 	direction_to_player = direction_to_player.normalized()
-
 	# Appliquer la vitesse directement comme le joueur
 	if direction_to_player.length() > 0:
 		velocity.x = direction_to_player.x * SPEED
 		velocity.z = direction_to_player.z * SPEED
-
 	move_and_slide()
 
 func get_contact_damage() -> int:

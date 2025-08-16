@@ -89,7 +89,7 @@ camera_path = NodePath("../Node3D/Camera3D")
 player_body_path = NodePath("..")
 
 [node name="FireRateTimer" type="Timer" parent="MainWeapon"]
-wait_time = 0.7
+wait_time = 0.8
 one_shot = true
 
 [node name="GunShot" type="AudioStreamPlayer" parent="."]
