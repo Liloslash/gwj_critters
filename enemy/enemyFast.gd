@@ -5,8 +5,10 @@ extends CharacterBody3D
 @export var max_health := 25
 var current_health := 25
 @export var contact_damage: int = 2
+@onready var greu: AudioStreamPlayer3D = $Greu
 
 var player: CharacterBody3D
+var is_dead = false
 
 func _ready() -> void:
 	add_to_group("Enemy")
@@ -41,4 +43,9 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	greu.play()
+	await greu.finished
 	queue_free()
