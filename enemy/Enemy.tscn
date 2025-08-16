@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhuko84jtt65y"]
+[gd_scene load_steps=16 format=3 uid="uid://bhuko84jtt65y"]
 
 [ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy/enemy.gd" id="1_tt7e2"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_enemy_shader"]
 [ext_resource type="AudioStream" uid="uid://dafrwvnmnni63" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-Insect.mp3" id="3_80fio"]
 [ext_resource type="AudioStream" uid="uid://bmkhduk7q3adp" path="res://Assets/Sons Critters/Bruitage/Gémissements/crit-gutural-greu.mp3" id="4_80fio"]
+[ext_resource type="Texture2D" uid="uid://b5x4le811hdo8" path="res://Assets/Sprites/PapillonV1.png" id="5_55d7h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 
@@ -21,6 +22,61 @@ shader_parameter/metallic = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tt7e2"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_55d7h"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgln8"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xp0jm"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgkeb"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73g7a"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_706jd"]
+atlas = ExtResource("5_55d7h")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44bt2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55d7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgln8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xp0jm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgkeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73g7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_706jd")
+}],
+"loop": true,
+"name": &"Wingflapanim",
+"speed": 30.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="MainEnemy" type="CharacterBody3D"]
 script = ExtResource("1_tt7e2")
 SPEED = 4.0
@@ -29,6 +85,7 @@ SPEED = 4.0
 shape = SubResource("CapsuleShape3D_gqquq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_enemy")
 mesh = SubResource("CapsuleMesh_tt7e2")
 
@@ -41,3 +98,10 @@ autoplay = true
 stream = ExtResource("4_80fio")
 volume_db = -25.0
 max_polyphony = 6
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_44bt2")
+animation = &"Wingflapanim"
+frame = 4
+frame_progress = 0.18545
