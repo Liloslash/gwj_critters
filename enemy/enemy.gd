@@ -39,7 +39,7 @@ func get_contact_damage() -> int:
 
 func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
-	anim_sprite.modulate = Color(1, 0, 0, 1)
+	anim_sprite.modulate = Color(0.64, 0.0384, 0.0384, 1)
 
 	# Reset modulate back to normal after 0.5 seconds
 	var tween = create_tween()
