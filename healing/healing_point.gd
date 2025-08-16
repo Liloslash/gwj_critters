@@ -12,11 +12,8 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.has_method("heal"):
 		body.heal(heal_amount)
 		healing_sound.play()
-		csg_sphere_3d.queue_free()
+		csg_sphere_3d.visible = false
 		heal_amount = 0
 		await healing_sound.finished
 
 		queue_free()
-
-func _on_body_exited(body: Node3D) -> void:
-	pass # Not needed for this implementation
