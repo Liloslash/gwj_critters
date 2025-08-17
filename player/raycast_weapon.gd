@@ -59,7 +59,7 @@ func fire() -> bool:
 func can_fire() -> bool:
 	return fire_rate_timer.time_left <= 0.0
 
-func set_auto_fire_enabled(enabled: bool) -> void:
+func set_auto_fire_enabled(_enabled: bool) -> void:
 	# Raycast weapon is always single fire, ignore auto fire requests
 	auto_fire_enabled = false
 

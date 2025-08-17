@@ -3,7 +3,7 @@ class_name AutoWeapon
 
 @onready var gun_shot: AudioStreamPlayer = $GunShot
 @onready var fire_rate_timer: Timer = $FireRateTimer
-@onready var auto_weapon_animation: AnimatedSprite2D = $"../CanvasLayer/AutoWeaponAnimation"
+@onready var auto_weapon_animation: AnimatedSprite2D = $"../CanvasLayer/Control/AutoWeaponAnimation"
 
 signal hit_confirmed(target, position: Vector3)
 
@@ -58,7 +58,7 @@ func fire() -> bool:
 func can_fire() -> bool:
 	return fire_rate_timer.time_left <= 0.0
 
-func set_auto_fire_enabled(enabled: bool) -> void:
+func set_auto_fire_enabled(_enabled: bool) -> void:
 	# Auto weapon is always in auto mode, but we keep this for compatibility
 	auto_fire_enabled = true
 
