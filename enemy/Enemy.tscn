@@ -101,5 +101,7 @@ max_polyphony = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 2
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_44bt2")
 animation = &"Wingflapanim"
+autoplay = "Wingflapanim"

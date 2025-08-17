@@ -14,7 +14,6 @@ var is_dead = false
 func _ready() -> void:
 	add_to_group("Enemy")
 	player = get_tree().get_first_node_in_group("Player")
-	anim_sprite.play("Wingflapanim")
 
 func _physics_process(delta: float) -> void:
 	if not player:

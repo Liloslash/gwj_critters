@@ -100,6 +100,7 @@ parameters/looping = true
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 2
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5684j")
 animation = &"Wingflapanim2"
 autoplay = "Wingflapanim2"
