@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8yfcvieayxll"]
+[gd_scene load_steps=18 format=3 uid="uid://c8yfcvieayxll"]
 
 [ext_resource type="Script" uid="uid://du6i6c8grpafr" path="res://enemy/enemyFast.gd" id="1_72hl8"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f083o"]
 [ext_resource type="AudioStream" uid="uid://dwmm8aya6r6d" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-InsectV2.mp3" id="3_02vix"]
 [ext_resource type="Texture2D" uid="uid://drm6eojw50utw" path="res://Assets/Sprites/PapillonV2.png" id="4_02vix"]
-[ext_resource type="AudioStream" uid="uid://c46ocouim68yo" path="res://enemy/PapillonV1die.mp3" id="5_ne5co"]
+[ext_resource type="AudioStream" uid="uid://bwymmpgqr1cn6" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapiV2die-1.mp3" id="5_rsw1p"]
+[ext_resource type="AudioStream" uid="uid://daqbqlt3rjoe4" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapiV2die-2.mp3" id="6_uk1p3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 radius = 0.6
@@ -80,6 +81,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uke40"]
+streams_count = 2
+stream_0/stream = ExtResource("5_rsw1p")
+stream_1/stream = ExtResource("6_uk1p3")
+
 [node name="EnemyFast" type="CharacterBody3D"]
 script = ExtResource("1_72hl8")
 
@@ -107,5 +113,5 @@ frame = 1
 frame_progress = 0.0227295
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_ne5co")
+stream = SubResource("AudioStreamRandomizer_uke40")
 volume_db = -20.0
