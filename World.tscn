@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=31 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cxlnjf0w6uq4o" path="res://healing/healing_points.gd" id="9_f5c0m"]
 [ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
 [ext_resource type="AudioStream" uid="uid://c27ungj3tid2y" path="res://Assets/Sons Critters/Bruitage/Gong/shovel-gong.mp3" id="10_fvag4"]
+[ext_resource type="Texture2D" uid="uid://x5ud325gnbgc" path="res://Assets/Sprites/TallGrass_GameJamWild83.png" id="13_b2ar6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eu7l1"]
 noise_type = 3
@@ -74,6 +75,84 @@ fog_height_density = -0.1641
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bah7m"]
 size = Vector3(63, 0.1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee7l0"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn8l5"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w02q"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fphk"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjtuv"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvq6i"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tx0c"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0to5b"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5j71u"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyqkj"]
+atlas = ExtResource("13_b2ar6")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydbc3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee7l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn8l5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w02q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fphk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjtuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvq6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tx0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0to5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5j71u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyqkj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_p1v5b")
@@ -149,3 +228,381 @@ shape = SubResource("BoxShape3D_bah7m")
 
 [node name="GongPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_fvag4")
+
+[node name="Grass" type="Node" parent="."]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 1.71558, 0.284566, 0)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.150179
+
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -2.32021, 0.284566, 0.989823)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -6.28896, 0.284566, 2.43333)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D5" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -6.21299, 0.284566, 4.75195)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D6" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -8.59625, 0.284566, 5.43555)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D7" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -10.8592, 0.284566, 6.84877)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D8" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -20.6815, 0.284566, 21.6845)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D9" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -23.6418, 0.284566, 8.75781)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D10" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -12.3565, 0.284566, 18.8912)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D11" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -4.82281, 0.284566, 11.0998)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D12" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -4.82281, 0.284566, 17.0698)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D13" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -1.24744, 0.284566, 17.0698)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D14" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -0.369475, 0.284566, 25.5983)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D15" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0.46036, 0.284566, 6.57212)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D16" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 5.01883, 0.284566, 6.57212)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D17" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 5.01883, 0.284566, 10.9279)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D18" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 7.99068, 0.284566, 19.9151)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D19" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 7.99068, 0.284566, 27.1148)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D20" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 18.3787, 0.284566, 25.9211)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D21" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 19.1646, 0.284566, 22.4587)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D22" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 25.5436, 0.284566, 12.892)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D23" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 21.588, 0.284566, 2.8808)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D24" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 17.1068, 0.284566, -0.888741)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D25" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 21.7794, 0.284566, -3.69229)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D26" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 21.7794, 0.284566, -16.2829)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D27" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 11.2313, 0.284566, -16.2829)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D28" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 4.33351, 0.284566, -18.9646)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D29" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 3.43127, 0.284566, -9.61454)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D30" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 0.718134, 0.284566, -10.4366)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D31" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 27.9972, 0.284566, -0.390568)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D32" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 27.9972, 0.284566, -24.1198)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D33" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 17.2587, 0.284566, -26.942)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D34" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 1.75824, 0.284566, -28.4797)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D35" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -10.9087, 0.284566, -18.2806)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D37" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -18.7943, 0.284566, -16.834)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D38" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -17.1987, 0.284566, -11.6603)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D39" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -25.121, 0.284566, -11.9981)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D40" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -27.241, 0.284566, -24.7204)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D41" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -27.6542, 0.284566, -7.52197)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D42" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -12.7672, 0.284566, -4.18756)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D43" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -5.45241, 0.284566, -3.79302)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D44" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -3.36031, 0.284566, -15.4886)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D45" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -2.48207, 0.284566, -8.37886)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D46" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -1.69105, 0.284566, -3.32719)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D47" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, 5.07626, 0.284566, 0.430829)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D36" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.461407, 0.0576921, 0, -0.0576921, 0.461407, -9.56603, 0.284566, -27.1385)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485
+
+[node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="Grass"]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -7.00779, 0.284566, 3.6627)
+modulate = Color(0.75, 0.75, 0.75, 1)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ydbc3")
+autoplay = "default"
+frame_progress = 0.426485

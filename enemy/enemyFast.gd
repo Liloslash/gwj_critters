@@ -51,6 +51,10 @@ func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	# Désactiver la collision
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	# Pour enemyFast, pas d'AnimatedSprite3D à mettre en pause
 	greu.play()
 	await greu.finished
 	queue_free()

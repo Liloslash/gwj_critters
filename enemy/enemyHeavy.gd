@@ -54,6 +54,11 @@ func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	# Désactiver la collision
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	# Mettre l'animation en pause
+	anim_sprite.pause()
 	greu.play()
 	await greu.finished
 	queue_free()
