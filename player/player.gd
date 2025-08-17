@@ -7,10 +7,19 @@ signal health_changed(current, max)
 signal game_over
 
 @onready var damage_zone: Area3D = $DamageZone
-@onready var weapon: RaycastWeapon = $MainWeapon
-@onready var fire_gun_animation: AnimatedSprite2D = $CanvasLayer/FireGunAnimation
+@onready var raycast_weapon: RaycastWeapon = $RaycastWeapon
+@onready var auto_weapon: AutoWeapon = $AutoWeapon
+@onready var raycast_animation: AnimatedSprite2D = $CanvasLayer/MainWeaponAnimation
+@onready var auto_animation: AnimatedSprite2D = $CanvasLayer/AutoWeaponAnimation
 @onready var footsteps_boots: AudioStreamPlayer = $"Footsteps-boots"
 @onready var death_scream: AudioStreamPlayer = $DeathScream
+
+# Weapon management
+var current_weapon_index: int = 0
+var weapons: Array = []
+var weapon_animations: Array = []
+var auto_weapon_unlocked: bool = false
+
 
 @onready var heartbeat_player: AudioStreamPlayer3D = $HeartbeatPlayer
 
@@ -36,10 +45,23 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	damage_zone.body_entered.connect(_on_enemy_entered)
 	damage_zone.body_exited.connect(_on_enemy_exited)
-	fire_gun_animation.animation_finished.connect(_on_gun_animation_finished)
-	# S'assurer que l'animation est sur la frame 0 de "fire" dès le démarrage
-	fire_gun_animation.frame = 0
-	fire_gun_animation.pause()
+
+	# Initialize weapons array
+	weapons = [raycast_weapon, auto_weapon]
+	weapon_animations = [raycast_animation, auto_animation]
+
+	# Connect animation finished signals
+	raycast_animation.animation_finished.connect(_on_gun_animation_finished)
+	auto_animation.animation_finished.connect(_on_gun_animation_finished)
+
+	# Initialize both weapon animations
+	for anim in weapon_animations:
+		anim.frame = 0
+		anim.pause()
+
+	# Hide auto weapon initially (only raycast weapon is active)
+	auto_animation.visible = false
+	raycast_animation.visible = true
 
 	# Initialiser l'effet de dégâts (invisible au départ)
 	if damage_vignette:
@@ -64,8 +86,12 @@ func _input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion:
 		_handle_mouse_motion(event)
-	if event.is_action_pressed("fire"):
-		_try_fire_weapon()
+	elif event.is_action_pressed("fire"):
+		_start_firing()
+	elif event.is_action_released("fire"):
+		_stop_firing()
+	elif Input.is_action_just_pressed("switchWeapon"):
+		_switch_weapon()
 
 func _physics_process(delta: float) -> void:
 	if is_dead():
@@ -110,15 +136,81 @@ func _physics_process(delta: float) -> void:
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 	rotate_y(-event.relative.x * 0.002)
 
+func _switch_weapon() -> void:
+	# Stop current weapon firing
+	_stop_firing()
+
+	# If auto weapon is not unlocked, can't switch to it
+	if not auto_weapon_unlocked and current_weapon_index == 0:
+		return # Stay on raycast weapon
+
+	# Switch to next weapon
+	if auto_weapon_unlocked:
+		current_weapon_index = (current_weapon_index + 1) % weapons.size()
+	else:
+		current_weapon_index = 0 # Force stay on raycast weapon
+
+	# Update weapon visibility
+	for i in range(weapon_animations.size()):
+		weapon_animations[i].visible = (i == current_weapon_index)
+
+func get_current_weapon():
+	return weapons[current_weapon_index]
+
+func get_current_animation():
+	return weapon_animations[current_weapon_index]
+
 func _try_fire_weapon() -> void:
+	var weapon = get_current_weapon()
+	var animation = get_current_animation()
+
 	if weapon and weapon.has_method("fire"):
 		var has_fired = weapon.fire()
 		if has_fired:
-			fire_gun_animation.play("Revolveranim")
+			# Play appropriate animation based on weapon type
+			if weapon is RaycastWeapon:
+				animation.play("Revolveranim")
+			elif weapon is AutoWeapon:
+				animation.play("fire")
+
+func _start_firing() -> void:
+	var weapon = get_current_weapon()
+	var animation = get_current_animation()
+
+	if weapon is AutoWeapon:
+		# Auto weapon always uses auto fire
+		weapon.set_auto_fire_enabled(true)
+		animation.play("fire")
+		weapon.start_firing()
+	elif weapon is RaycastWeapon:
+		# Raycast weapon is always single fire
+		weapon.set_auto_fire_enabled(false)
+		_try_fire_weapon()
+
+func _stop_firing() -> void:
+	var weapon = get_current_weapon()
+	var animation = get_current_animation()
+
+	if weapon.has_method("stop_firing"):
+		weapon.stop_firing()
+
+	# Arrêter l'animation de tir automatique et la remettre en position
+	if weapon.auto_fire_enabled:
+		animation.stop()
+		animation.frame = 0
+		animation.pause()
 
 func _on_gun_animation_finished() -> void:
-	fire_gun_animation.frame = 0
-	fire_gun_animation.pause()
+	var weapon = get_current_weapon()
+	var animation = get_current_animation()
+
+	# En mode automatique, relancer l'animation si on tire encore
+	if weapon.auto_fire_enabled and weapon.is_firing:
+		animation.play("fire")
+	else:
+		# Tir simple ou arrêt du tir automatique
+		animation.frame = 0
+		animation.pause()
 
 func _process_damage(delta: float) -> void:
 	if enemies_in_range.is_empty() or is_dead():
@@ -153,7 +245,8 @@ func take_damage(amount: int) -> void:
 	emit_signal("health_changed", current_health)
 
 	# Déclencher l'effet de vignettage rouge
-	damage_animation()
+	if amount > 0:
+		damage_animation()
 
 	if current_health < max_health * 0.25:
 		if not heartbeat_player.playing:

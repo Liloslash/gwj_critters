@@ -34,6 +34,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func get_contact_damage() -> int:
+	if is_dead:
+		return 0
 	return contact_damage
 
 func take_damage(amount: int) -> void:

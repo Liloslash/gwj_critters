@@ -1,17 +1,60 @@
-[gd_scene load_steps=28 format=3 uid="uid://bporlauvhb1m8"]
+[gd_scene load_steps=35 format=3 uid="uid://bporlauvhb1m8"]
 
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://cn2u3c6tkito0" path="res://player/auto_weapon.gd" id="2_06mnu"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
 [ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
 [ext_resource type="Texture2D" uid="uid://drh5xetmhdnv4" path="res://Assets/Sprites/Gun-HUD.png" id="4_83hs8"]
 [ext_resource type="Texture2D" uid="uid://bgbgio4t82yq4" path="res://Assets/Sprites/Revolver.png" id="4_gskgj"]
 [ext_resource type="AudioStream" uid="uid://cnxna2q2hfv33" path="res://Assets/Sons Critters/Bruitage/Gémissements/young-male-scream.mp3" id="5_aqcbf"]
+[ext_resource type="AudioStream" uid="uid://co2gc4phif6go" path="res://Assets/Sons Critters/Bruitage/Dégats/single-pistol-gunshot-3.mp3" id="5_mhpjh"]
 [ext_resource type="AudioStream" uid="uid://dlb06f6iddasv" path="res://Assets/Sons Critters/Bruitage/Dégats/Heartbeat.mp3" id="5_x8kxw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xhfnw"]
 radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m0d2"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6miu"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(2000, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlfor"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(1000, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stbqk"]
+atlas = ExtResource("4_83hs8")
+region = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y617q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m0d2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6miu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlfor")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stbqk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ndjxb"]
 atlas = ExtResource("4_gskgj")
@@ -165,14 +208,32 @@ shape = SubResource("CapsuleShape3D_0rwas")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageZone"]
 shape = SubResource("SphereShape3D_xhfnw")
 
-[node name="MainWeapon" type="Node" parent="."]
+[node name="AutoWeapon" type="Node" parent="."]
+script = ExtResource("2_06mnu")
+camera_path = NodePath("../Node3D/Camera3D")
+player_body_path = NodePath("..")
+
+[node name="FireRateTimer" type="Timer" parent="AutoWeapon"]
+wait_time = 0.12
+one_shot = true
+
+[node name="GunShot" type="AudioStreamPlayer" parent="AutoWeapon"]
+stream = ExtResource("3_wnvi2")
+volume_db = -17.218
+max_polyphony = 4
+
+[node name="RaycastWeapon" type="Node" parent="."]
 script = ExtResource("2_weapon")
 camera_path = NodePath("../Node3D/Camera3D")
 player_body_path = NodePath("..")
 
-[node name="FireRateTimer" type="Timer" parent="MainWeapon"]
-wait_time = 0.6
+[node name="FireRateTimer" type="Timer" parent="RaycastWeapon"]
+wait_time = 0.4
 one_shot = true
+
+[node name="HeavyGunShot" type="AudioStreamPlayer" parent="RaycastWeapon"]
+stream = ExtResource("5_mhpjh")
+volume_db = -11.924
 
 [node name="DamageAnimation" type="CanvasLayer" parent="."]
 
@@ -184,14 +245,16 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 0)
 
-[node name="GunShot" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_wnvi2")
-volume_db = -20.702
-max_polyphony = 4
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FireGunAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
+[node name="AutoWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(569, 282)
+scale = Vector2(0.735985, 0.735985)
+sprite_frames = SubResource("SpriteFrames_y617q")
+animation = &"fire"
+frame_progress = 0.0990806
+
+[node name="MainWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(721, 381)

@@ -1,8 +1,7 @@
 extends Node
-class_name RaycastWeapon
+class_name AutoWeapon
 
-@onready var heavy_gun_shot: AudioStreamPlayer = $HeavyGunShot
-
+@onready var gun_shot: AudioStreamPlayer = $GunShot
 @onready var fire_rate_timer: Timer = $FireRateTimer
 
 signal hit_confirmed(target, position: Vector3)
@@ -13,12 +12,12 @@ signal hit_confirmed(target, position: Vector3)
 @export var camera_path: NodePath
 @export var player_body_path: NodePath
 
-# Single fire weapon only
-var auto_fire_enabled: bool = false # Always false for raycast weapon
+# Variables pour le tir automatique (always enabled for auto weapon)
+var auto_fire_enabled: bool = true
 var is_firing: bool = false
 
-# Configuration de la cadence de tir
-@export var fire_rate: float = 0.5 # Délai entre les tirs (en secondes)
+# Configuration des cadences de tir (always fast for auto weapon)
+@export var fire_rate: float = 0.12 # Délai entre les tirs automatiques
 
 # Recoil configuration
 @export var recoil_pitch_deg: float = 2.0
@@ -33,7 +32,8 @@ var _recoil_tween: Tween
 func _ready() -> void:
 	_camera = get_node_or_null(camera_path) as Camera3D
 	_player_body = get_node_or_null(player_body_path) as CharacterBody3D
-	# Set fire rate
+
+	# Set auto fire rate
 	fire_rate_timer.wait_time = fire_rate
 
 func fire() -> bool:
@@ -48,7 +48,7 @@ func fire() -> bool:
 	var space: PhysicsDirectSpaceState3D = get_viewport().world_3d.direct_space_state
 	var query := _build_query(from, to)
 	var result: Dictionary = space.intersect_ray(query)
-	heavy_gun_shot.play()
+	gun_shot.play()
 	if result.is_empty():
 		_apply_recoil()
 		return true
@@ -60,15 +60,27 @@ func can_fire() -> bool:
 	return fire_rate_timer.time_left <= 0.0
 
 func set_auto_fire_enabled(enabled: bool) -> void:
-	# Raycast weapon is always single fire, ignore auto fire requests
-	auto_fire_enabled = false
+	# Auto weapon is always in auto mode, but we keep this for compatibility
+	auto_fire_enabled = true
 
 func start_firing() -> void:
-	# Raycast weapon doesn't support continuous firing
 	is_firing = true
+	if auto_fire_enabled:
+		_continue_auto_fire()
 
 func stop_firing() -> void:
 	is_firing = false
+
+func _continue_auto_fire() -> void:
+	if not is_firing or not auto_fire_enabled:
+		return
+
+	fire()
+
+	# Programmer le prochain tir automatique
+	if is_firing and auto_fire_enabled:
+		await fire_rate_timer.timeout
+		_continue_auto_fire()
 
 func _compute_ray_end(from: Vector3) -> Vector3:
 	return from + (-_camera.global_transform.basis.z) * ray_distance
@@ -106,9 +118,9 @@ func _apply_recoil() -> void:
 
 	var target_rot: Vector3 = base_rot
 
-	# Recul standard pour le tir simple
-	var pitch_modifier: float = 1.0
-	var yaw_modifier: float = 1.0
+	# Recul réduit pour l'arme automatique
+	var pitch_modifier: float = 0.4 # Recul encore plus réduit pour l'auto weapon
+	var yaw_modifier: float = 0.5
 
 	# Pitch up from the horizon
 	target_rot.x = base_rot.x + (recoil_pitch_deg * pitch_modifier)

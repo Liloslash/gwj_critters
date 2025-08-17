@@ -8,14 +8,21 @@ class_name HUD
 @onready var wave_start: CenterContainer = $WaveStart
 @onready var wave_start_label: Label = $WaveStart/WaveStartLabel
 
+@onready var new_weapon: CenterContainer = $NewWeapon
+@onready var new_weapon_timer: Timer = $NewWeapon/NewWeaponTimer
+
 @onready var wave_hud_timer: Timer = $WaveHUDTimer
 
 func _ready() -> void:
 	var player := get_tree().get_first_node_in_group("Player")
 	game_over_panel.visible = false
 	wave_start.visible = false
+	new_weapon.visible = false
 
 	player.health_changed.connect(_on_health_changed)
+
+	new_weapon_timer.one_shot = true
+	new_weapon_timer.timeout.connect(hide_new_weapon)
 
 	wave_hud_timer.one_shot = true
 	wave_hud_timer.timeout.connect(hide_wave_start)
@@ -45,8 +52,15 @@ func show_wave_start(wave_number: int) -> void:
 	wave_start_label.text = "Wave %d" % wave_number + " !"
 	wave_hud_timer.start()
 
+func show_new_weapon() -> void:
+	new_weapon.visible = true
+	new_weapon_timer.start()
+
 func hide_wave_start() -> void:
 	wave_start.visible = false
+
+func hide_new_weapon() -> void:
+	new_weapon.visible = false
 
 func _on_button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

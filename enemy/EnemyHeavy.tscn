@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://ckh8ty6updyw7" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapillonV1die.mp3" id="4_pla6f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
-radius = 0.4
 height = 1.7
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy"]

@@ -5,14 +5,18 @@ extends Node3D
 
 @onready var spawn_zones: Area3D = $SpawnZones
 @onready var heal_points: Node3D = $HealPoints
+@onready var player: CharacterBody3D = $Player
 
 @onready var gong_player: AudioStreamPlayer = $GongPlayer
+
+# Signal pour notifier les changements de vague
+signal wave_changed(wave_number: int)
 
 
 @export var enemy_scene: PackedScene
 @export var enemy_scenes: Array[PackedScene] = []
 @export var spawn_interval_seconds: float = 1.0
-@export var wave_pause_seconds: float = 2.0
+@export var wave_pause_seconds: float = 4
 @export var enemy_count_base: int = 4
 @export var enemy_count_multiplier: float = 3.0
 @export var enemy_linear_increment: int = 4
@@ -48,6 +52,8 @@ func _start_next_wave() -> void:
 	spawn_timer.start()
 	gong_player.play()
 
+	# Émettre le signal pour notifier le changement de vague
+	wave_changed.emit(current_wave)
 
 func _on_wave_timer_timeout() -> void:
 	_start_next_wave()
@@ -94,6 +100,11 @@ func _finish_wave() -> void:
 		return
 	is_between_waves = true
 	_update_hud_wave_ended()
+
+	if current_wave == 4:
+		hud.show_new_weapon()
+		player.auto_weapon_unlocked = true
+
 	wave_timer.stop()
 	wave_timer.start(wave_pause_seconds)
 

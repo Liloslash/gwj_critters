@@ -22,6 +22,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	if is_dead:
+		return
+
 	# Direction vers le joueur SEULEMENT sur les axes X et Z
 	var direction_to_player = player.global_position - global_position
 	direction_to_player.y = 0 # Ignorer complètement l'axe Y
@@ -35,6 +38,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func get_contact_damage() -> int:
+	if is_dead:
+		return 0
 	return contact_damage
 
 func take_damage(amount: int) -> void:

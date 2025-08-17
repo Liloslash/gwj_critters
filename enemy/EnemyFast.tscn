@@ -7,8 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://c46ocouim68yo" path="res://enemy/PapillonV1die.mp3" id="5_ne5co"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
-radius = 0.4
-height = 1.7
+radius = 0.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy"]
 render_priority = 0

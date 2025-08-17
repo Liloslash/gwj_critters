@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5x4le811hdo8" path="res://Assets/Sprites/PapillonV1.png" id="5_55d7h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
+radius = 0.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy"]
 render_priority = 0
