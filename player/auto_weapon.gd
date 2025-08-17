@@ -3,6 +3,7 @@ class_name AutoWeapon
 
 @onready var gun_shot: AudioStreamPlayer = $GunShot
 @onready var fire_rate_timer: Timer = $FireRateTimer
+@onready var auto_weapon_animation: AnimatedSprite2D = $"../CanvasLayer/AutoWeaponAnimation"
 
 signal hit_confirmed(target, position: Vector3)
 
@@ -70,6 +71,7 @@ func start_firing() -> void:
 
 func stop_firing() -> void:
 	is_firing = false
+	auto_weapon_animation.play("idle")
 
 func _continue_auto_fire() -> void:
 	if not is_firing or not auto_fire_enabled:

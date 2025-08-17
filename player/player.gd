@@ -172,9 +172,6 @@ func _try_fire_weapon() -> void:
 		var has_fired = weapon.fire()
 		if has_fired:
 			# Play appropriate animation based on weapon type
-			if weapon is RaycastWeapon:
-				animation.play("Revolveranim")
-			elif weapon is AutoWeapon:
 				animation.play("fire")
 
 func _start_firing() -> void:
@@ -212,9 +209,8 @@ func _on_gun_animation_finished() -> void:
 	if weapon.auto_fire_enabled and weapon.is_firing:
 		animation.play("fire")
 	else:
-		# Tir simple ou arrêt du tir automatique
-		animation.frame = 0
-		animation.pause()
+		animation.play("idle")
+
 
 func _process_damage(delta: float) -> void:
 	if enemies_in_range.is_empty() or is_dead():
