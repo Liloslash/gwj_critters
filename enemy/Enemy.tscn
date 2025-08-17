@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhuko84jtt65y"]
+[gd_scene load_steps=18 format=3 uid="uid://bhuko84jtt65y"]
 
 [ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy/enemy.gd" id="1_tt7e2"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_enemy_shader"]
 [ext_resource type="AudioStream" uid="uid://dafrwvnmnni63" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-Insect.mp3" id="3_80fio"]
-[ext_resource type="AudioStream" uid="uid://ckh8ty6updyw7" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapillonV1die.mp3" id="4_55d7h"]
+[ext_resource type="AudioStream" uid="uid://p66l6bwdrpen" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapiV1die-1.mp3" id="4_xgln8"]
 [ext_resource type="Texture2D" uid="uid://b5x4le811hdo8" path="res://Assets/Sprites/PapillonV1.png" id="5_55d7h"]
+[ext_resource type="AudioStream" uid="uid://b7v4uv2bla248" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapiV1die-2.mp3" id="5_xp0jm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 radius = 0.6
@@ -22,6 +23,11 @@ shader_parameter/roughness = 0.65
 shader_parameter/metallic = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tt7e2"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vgkeb"]
+streams_count = 2
+stream_0/stream = ExtResource("4_xgln8")
+stream_1/stream = ExtResource("5_xp0jm")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55d7h"]
 atlas = ExtResource("5_55d7h")
@@ -96,7 +102,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_55d7h")
+stream = SubResource("AudioStreamRandomizer_vgkeb")
 volume_db = -20.0
 max_polyphony = 6
 

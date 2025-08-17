@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dcpit7garberr" path="res://enemy/enemyHeavy.gd" id="1_3sgl2"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f34wa"]
 [ext_resource type="AudioStream" uid="uid://dafrwvnmnni63" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-Insect.mp3" id="3_f34wa"]
+[ext_resource type="AudioStream" uid="uid://73l62dw7rtsa" path="res://Assets/Sons Critters/Bruitage/Gémissements/monster-roar.mp3" id="4_3sgl2"]
 [ext_resource type="Texture2D" uid="uid://cy0lg085kyfda" path="res://Assets/Sprites/BigMonster.png" id="4_f34wa"]
-[ext_resource type="AudioStream" uid="uid://ckh8ty6updyw7" path="res://Assets/Sons Critters/Bruitage/Gémissements/PapillonV1die.mp3" id="4_pla6f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 height = 1.7
@@ -239,8 +239,8 @@ autoplay = true
 parameters/looping = true
 
 [node name="Greu" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_pla6f")
-volume_db = -20.0
+stream = ExtResource("4_3sgl2")
+volume_db = -25.0
 max_polyphony = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
