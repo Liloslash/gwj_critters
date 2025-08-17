@@ -24,6 +24,10 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1iq"]
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 border_color = Color(0.639216, 0.0392157, 0.0392157, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_1and6"]
@@ -160,7 +164,6 @@ text = "Wave 1 !"
 label_settings = ExtResource("2_efote")
 
 [node name="StartGamePanel" type="Panel" parent="."]
-visible = false
 z_index = 999
 anchors_preset = 15
 anchor_right = 1.0

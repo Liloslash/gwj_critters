@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 AudioManager="*res://audio/AudioManager.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 left={
