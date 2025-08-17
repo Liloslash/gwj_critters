@@ -23,19 +23,37 @@ signal wave_changed(wave_number: int)
 @export var spawn_delay_min_seconds: float = 0.2
 @export var spawn_delay_numerator: float = 2.0
 
-var current_wave: int = 0
+@export var current_wave: int = 0
+
 var enemies_to_spawn_this_wave: int = 0
 var enemies_spawned_in_wave: int = 0
 var enemies_alive_count: int = 0
 var is_between_waves: bool = false
+var game_started: bool = false
 var hud: HUD = null
 
 func _ready() -> void:
-	hud = get_node_or_null("HUD")
 	AudioManager.play_music()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	hud = get_node_or_null("HUD")
 	_configure_spawn_timer()
 	_configure_wave_timer()
 	_seed_rng()
+	# Don't start waves automatically - wait for start_game() to be called
+
+func start_game() -> void:
+	if game_started:
+		return
+	game_started = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	# If starting at wave 4 or higher, unlock auto weapon
+	if current_wave >= 4:
+		player.auto_weapon_unlocked = true
+
+	# Enable player input
+	if player and player.has_method("start_game"):
+		player.start_game()
 	_start_next_wave()
 
 func _on_spawn_timer_timeout() -> void:
@@ -101,8 +119,9 @@ func _finish_wave() -> void:
 	is_between_waves = true
 	_update_hud_wave_ended()
 
-	if current_wave == 4:
-		hud.show_new_weapon()
+	if current_wave >= 4:
+		if current_wave == 4:
+			hud.show_new_weapon()
 		player.auto_weapon_unlocked = true
 
 	wave_timer.stop()

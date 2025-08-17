@@ -36,13 +36,13 @@ var enemies_in_range = []
 var damage_per_enemy_default := 5
 var is_taking_damage = false
 var is_walking = false
+var game_started = false
 
 # Variables pour l'effet de flash de dégâts
 var damage_effect_tween: Tween
 var damage_flash_duration = 0.08
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	damage_zone.body_entered.connect(_on_enemy_entered)
 	damage_zone.body_exited.connect(_on_enemy_exited)
 
@@ -82,7 +82,7 @@ func _on_enemy_exited(body):
 	is_taking_damage = enemies_in_range.size() > 0
 
 func _input(event: InputEvent) -> void:
-	if is_dead():
+	if is_dead() or not game_started:
 		return
 	if event is InputEventMouseMotion:
 		_handle_mouse_motion(event)
@@ -93,8 +93,15 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("switchWeapon"):
 		_switch_weapon()
 
+func start_game() -> void:
+	game_started = true
+
 func _physics_process(delta: float) -> void:
-	if is_dead():
+	# Allow escape key to work even before game starts (for debugging)
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if is_dead() or not game_started:
 		return
 	# Add the gravity.
 	if not is_on_floor():
@@ -103,9 +110,6 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

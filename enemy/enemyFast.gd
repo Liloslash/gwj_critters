@@ -6,6 +6,7 @@ extends CharacterBody3D
 var current_health := 25
 @export var contact_damage: int = 2
 @onready var greu: AudioStreamPlayer3D = $Greu
+@onready var anim_sprite: AnimatedSprite3D = $AnimatedSprite3D
 
 var player: CharacterBody3D
 var is_dead = false
@@ -44,6 +45,13 @@ func get_contact_damage() -> int:
 
 func take_damage(amount: int) -> void:
 	current_health = max(0, current_health - amount)
+	anim_sprite.modulate = Color(0.64, 0.0384, 0.0384, 1)
+
+	# Reset modulate back to normal after 0.1 seconds
+	var tween = create_tween()
+	tween.tween_interval(0.1)
+	tween.tween_callback(func(): anim_sprite.modulate = Color(1, 1, 1, 1))
+
 	if current_health == 0:
 		die()
 
@@ -54,7 +62,8 @@ func die() -> void:
 	# Désactiver la collision
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-	# Pour enemyFast, pas d'AnimatedSprite3D à mettre en pause
+	# Mettre l'animation en pause
+	anim_sprite.pause()
 	greu.play()
 	await greu.finished
 	queue_free()

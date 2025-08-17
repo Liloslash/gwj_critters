@@ -154,11 +154,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" groups=["World"]]
 script = ExtResource("1_p1v5b")
 enemy_scene = ExtResource("2_2dftf")
 enemy_scenes = Array[PackedScene]([ExtResource("2_2dftf"), ExtResource("3_bah7m"), ExtResource("4_f5c0m")])
 enemy_count_base = 2
+current_wave = 5
 metadata/_edit_lock_ = true
 
 [node name="Arena" parent="." instance=ExtResource("3_p1v5b")]
@@ -177,8 +178,6 @@ environment = SubResource("Environment_c6gwx")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.809017, 0.50383, -0.302732, 0, 0.515038, 0.857167, 0.587785, -0.693463, 0.416675, 0, 7.91, 9.725)
 shadow_enabled = true
-
-[node name="HUD" parent="." instance=ExtResource("3_hud")]
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
@@ -237,7 +236,7 @@ modulate = Color(0.75, 0.75, 0.75, 1)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ydbc3")
 autoplay = "default"
-frame_progress = 0.150179
+frame_progress = 0.535079
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="Grass"]
 transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, -2.32021, 0.284566, 0.989823)
@@ -606,3 +605,5 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ydbc3")
 autoplay = "default"
 frame_progress = 0.426485
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]

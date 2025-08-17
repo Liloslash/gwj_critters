@@ -8,6 +8,8 @@ class_name HUD
 @onready var wave_start: CenterContainer = $WaveStart
 @onready var wave_start_label: Label = $WaveStart/WaveStartLabel
 
+@onready var start_game_panel: Panel = $StartGamePanel
+
 @onready var new_weapon: CenterContainer = $NewWeapon
 @onready var new_weapon_timer: Timer = $NewWeapon/NewWeaponTimer
 
@@ -18,6 +20,7 @@ func _ready() -> void:
 	game_over_panel.visible = false
 	wave_start.visible = false
 	new_weapon.visible = false
+	start_game_panel.visible = true # Make sure start panel is visible initially
 
 	player.health_changed.connect(_on_health_changed)
 
@@ -69,3 +72,10 @@ func _on_button_pressed() -> void:
 func game_over() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	game_over_panel.show()
+
+
+func _on_start_game_button_pressed() -> void:
+	start_game_panel.visible = false
+	# Get the world node and start the game
+	var world = get_tree().get_first_node_in_group("World")
+	world.start_game()

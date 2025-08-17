@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://caoh2ltkqoyvm"]
+[gd_scene load_steps=12 format=3 uid="uid://caoh2ltkqoyvm"]
 
 [ext_resource type="Script" uid="uid://cmdfqnxlt1llg" path="res://hud.gd" id="1"]
 [ext_resource type="LabelSettings" uid="uid://d28c3ckfld1ai" path="res://theme/titles.tres" id="2_efote"]
 [ext_resource type="Texture2D" uid="uid://bxqbnux0gcs0q" path="res://Assets/Fonts/heart.png" id="2_vow1y"]
 [ext_resource type="FontFile" uid="uid://bvwopq78lqicr" path="res://Assets/Fonts/Melted-Monster.ttf" id="4_ne771"]
+[ext_resource type="StyleBox" uid="uid://duhu53qj011yy" path="res://theme/btn.tres" id="5_xxqia"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne771"]
 bg_color = Color(0.37, 0.37, 0.37, 1)
@@ -19,6 +20,17 @@ font = ExtResource("4_ne771")
 font_size = 127
 font_color = Color(0.64, 0.0384, 0.0384, 1)
 outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1iq"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.639216, 0.0392157, 0.0392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1and6"]
+font = ExtResource("4_ne771")
+font_size = 64
+font_color = Color(0.64, 0.0384, 0.0384, 1)
+outline_size = 22
 outline_color = Color(0, 0, 0, 1)
 
 [node name="HUD" type="CanvasLayer"]
@@ -104,6 +116,7 @@ label_settings = ExtResource("2_efote")
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_xxqia")
 text = "Try Again"
 
 [node name="NewWeapon" type="CenterContainer" parent="."]
@@ -146,4 +159,42 @@ layout_mode = 2
 text = "Wave 1 !"
 label_settings = ExtResource("2_efote")
 
+[node name="StartGamePanel" type="Panel" parent="."]
+visible = false
+z_index = 999
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv1iq")
+
+[node name="CenterContainer" type="CenterContainer" parent="StartGamePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartGamePanel/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StartGamePanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cocoonstrike : Mortal Butterflies"
+label_settings = SubResource("LabelSettings_1and6")
+
+[node name="Control" type="Control" parent="StartGamePanel/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0.29, 19.95)
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="StartGamePanel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = ExtResource("5_xxqia")
+text = "NEW GAME"
+
 [connection signal="pressed" from="GameOver/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StartGamePanel/CenterContainer/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]

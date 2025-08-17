@@ -6,7 +6,7 @@ class_name AutoWeapon
 
 signal hit_confirmed(target, position: Vector3)
 
-@export var damage: int = 50
+@export var damage: int = 20
 @export var ray_distance: float = 2000.0
 @export var collision_mask: int = 1
 @export var camera_path: NodePath

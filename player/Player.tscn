@@ -162,7 +162,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Revolveranim",
-"speed": 20.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -262,6 +262,8 @@ scale = Vector2(2.08594, 2.08594)
 sprite_frames = SubResource("SpriteFrames_wnvi2")
 animation = &"Revolveranim"
 autoplay = "Revolveranim"
+frame = 10
+frame_progress = 1.0
 centered = false
 
 [node name="Footsteps-boots" type="AudioStreamPlayer" parent="."]
