@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var SPEED = 10.0
+@export var SPEED = 9.5
 const JUMP_VELOCITY = 4.5
 
 signal health_changed(current, max)
