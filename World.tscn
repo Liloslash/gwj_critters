@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ct41h7jhnr1fy"]
+[gd_scene load_steps=19 format=3 uid="uid://ct41h7jhnr1fy"]
 
 [ext_resource type="PackedScene" uid="uid://bporlauvhb1m8" path="res://player/Player.tscn" id="1_c6gwx"]
 [ext_resource type="Script" uid="uid://dnn3skx325kqu" path="res://world.gd" id="1_p1v5b"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://caoh2ltkqoyvm" path="res://HUD.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bv0x3m8qr4a7t" path="res://map/Arena.tscn" id="3_p1v5b"]
 [ext_resource type="PackedScene" uid="uid://c8h4n2nar5k1p" path="res://map/Obstacles.tscn" id="3_wygdx"]
+[ext_resource type="PackedScene" uid="uid://dlo4i4iwatfxp" path="res://enemy/EnemyHeavy.tscn" id="4_f5c0m"]
 [ext_resource type="Script" uid="uid://cxlnjf0w6uq4o" path="res://healing/healing_points.gd" id="9_f5c0m"]
 [ext_resource type="Script" uid="uid://dhxj3oct7bbmf" path="res://spawn_zones.gd" id="9_fv4w7"]
 [ext_resource type="AudioStream" uid="uid://c27ungj3tid2y" path="res://Assets/Sons Critters/Bruitage/Gong/shovel-gong.mp3" id="10_fvag4"]
@@ -77,7 +78,7 @@ size = Vector3(63, 0.1, 1)
 [node name="World" type="Node3D"]
 script = ExtResource("1_p1v5b")
 enemy_scene = ExtResource("2_2dftf")
-enemy_scenes = Array[PackedScene]([ExtResource("2_2dftf"), ExtResource("3_bah7m")])
+enemy_scenes = Array[PackedScene]([ExtResource("2_2dftf"), ExtResource("3_bah7m"), ExtResource("4_f5c0m")])
 wave_pause_seconds = 1.8
 enemy_count_base = 2
 metadata/_edit_lock_ = true

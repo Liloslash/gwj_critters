@@ -79,7 +79,6 @@ animations = [{
 
 [node name="MainEnemy" type="CharacterBody3D"]
 script = ExtResource("1_tt7e2")
-SPEED = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_gqquq")
@@ -104,5 +103,3 @@ max_polyphony = 6
 billboard = 2
 sprite_frames = SubResource("SpriteFrames_44bt2")
 animation = &"Wingflapanim"
-frame = 4
-frame_progress = 0.18545
