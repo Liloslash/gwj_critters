@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://caoh2ltkqoyvm"]
+[gd_scene load_steps=13 format=3 uid="uid://caoh2ltkqoyvm"]
 
 [ext_resource type="Script" uid="uid://cmdfqnxlt1llg" path="res://hud.gd" id="1"]
 [ext_resource type="LabelSettings" uid="uid://d28c3ckfld1ai" path="res://theme/titles.tres" id="2_efote"]
 [ext_resource type="Texture2D" uid="uid://bxqbnux0gcs0q" path="res://Assets/Fonts/heart.png" id="2_vow1y"]
 [ext_resource type="FontFile" uid="uid://bvwopq78lqicr" path="res://Assets/Fonts/Melted-Monster.ttf" id="4_ne771"]
 [ext_resource type="StyleBox" uid="uid://duhu53qj011yy" path="res://theme/btn.tres" id="5_xxqia"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gv1iq"]
+font_size = 26
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne771"]
 bg_color = Color(0.37, 0.37, 0.37, 1)
@@ -41,7 +44,6 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -49,12 +51,13 @@ offset_left = -56.0
 offset_bottom = 40.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 22
 
 [node name="WaveLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
 text = "Wave 1"
+label_settings = SubResource("LabelSettings_gv1iq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = -1
