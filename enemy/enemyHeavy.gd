@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 @export var SPEED = 2.3
-@export var max_health := 250
-var current_health := 250
+@export var max_health := 200
+var current_health := 200
 @export var contact_damage: int = 10
 
 @onready var greu: AudioStreamPlayer3D = $Greu

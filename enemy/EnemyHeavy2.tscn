@@ -1,6 +1,6 @@
 [gd_scene load_steps=63 format=3 uid="uid://nkay2lping8s"]
 
-[ext_resource type="Script" uid="uid://dcpit7garberr" path="res://enemy/enemyHeavy.gd" id="1_a2atc"]
+[ext_resource type="Script" uid="uid://ddnb52bojg2ik" path="res://enemy/enemyHeavy2.gd" id="1_bbk2e"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_bbk2e"]
 [ext_resource type="AudioStream" uid="uid://bxixvnt63cqv2" path="res://Assets/Sons Critters/Bruitage/Pas/heavy-walking-footsteps.mp3" id="3_a7070"]
 [ext_resource type="AudioStream" uid="uid://73l62dw7rtsa" path="res://Assets/Sons Critters/Bruitage/Gémissements/monster-roar.mp3" id="4_4n610"]
@@ -409,7 +409,7 @@ animations = [{
 }]
 
 [node name="MainEnemy" type="CharacterBody3D"]
-script = ExtResource("1_a2atc")
+script = ExtResource("1_bbk2e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.19922, 0.0420711, 0.00988203, -0.0420549, 1.19926, -0.00213996, -0.00995097, 0.00179224, 1.19996, 0, 0.3, 0)
@@ -432,12 +432,12 @@ volume_db = -25.0
 max_polyphony = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.45, 0)
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.50367, 0)
 pixel_size = 0.02
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_44bt2")
 animation = &"Heavywalkanim2"
-autoplay = "Heavywalkanim"
+autoplay = "Heavywalkanim2"
 frame = 2
 frame_progress = 0.260055
