@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://cn2u3c6tkito0" path="res://player/auto_weapon.gd" id="2_06mnu"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
-[ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
+[ext_resource type="AudioStream" uid="uid://cokuwf77iot1f" path="res://Assets/Sons Critters/Bruitage/laser-gun-2.mp3" id="3_mhpjh"]
 [ext_resource type="Texture2D" uid="uid://bgbgio4t82yq4" path="res://Assets/Sprites/Revolver.png" id="4_gskgj"]
 [ext_resource type="AudioStream" uid="uid://cnxna2q2hfv33" path="res://Assets/Sons Critters/Bruitage/Gémissements/young-male-scream.mp3" id="5_aqcbf"]
 [ext_resource type="AudioStream" uid="uid://co2gc4phif6go" path="res://Assets/Sons Critters/Bruitage/Dégats/single-pistol-gunshot-3.mp3" id="5_mhpjh"]
@@ -241,8 +241,8 @@ wait_time = 0.12
 one_shot = true
 
 [node name="GunShot" type="AudioStreamPlayer" parent="AutoWeapon"]
-stream = ExtResource("3_wnvi2")
-volume_db = -17.218
+stream = ExtResource("3_mhpjh")
+volume_db = -9.928
 max_polyphony = 4
 
 [node name="RaycastWeapon" type="Node" parent="."]
