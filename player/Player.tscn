@@ -117,9 +117,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yu5hk")
 }],
-"loop": true,
+"loop": false,
 "name": &"Revolveranim",
-"speed": 15.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -171,7 +171,7 @@ camera_path = NodePath("../Node3D/Camera3D")
 player_body_path = NodePath("..")
 
 [node name="FireRateTimer" type="Timer" parent="MainWeapon"]
-wait_time = 0.35
+wait_time = 0.6
 one_shot = true
 
 [node name="DamageAnimation" type="CanvasLayer" parent="."]
@@ -192,10 +192,14 @@ max_polyphony = 4
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="FireGunAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
-position = Vector2(563, 150)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(721, 381)
+scale = Vector2(2.08594, 2.08594)
 sprite_frames = SubResource("SpriteFrames_wnvi2")
 animation = &"Revolveranim"
 autoplay = "Revolveranim"
+centered = false
 
 [node name="Footsteps-boots" type="AudioStreamPlayer" parent="."]
 

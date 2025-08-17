@@ -38,7 +38,6 @@ func _ready() -> void:
 	damage_zone.body_exited.connect(_on_enemy_exited)
 	fire_gun_animation.animation_finished.connect(_on_gun_animation_finished)
 	# S'assurer que l'animation est sur la frame 0 de "fire" dès le démarrage
-	fire_gun_animation.animation = "fire"
 	fire_gun_animation.frame = 0
 	fire_gun_animation.pause()
 
@@ -115,7 +114,7 @@ func _try_fire_weapon() -> void:
 	if weapon and weapon.has_method("fire"):
 		var has_fired = weapon.fire()
 		if has_fired:
-			fire_gun_animation.play("fire")
+			fire_gun_animation.play("Revolveranim")
 
 func _on_gun_animation_finished() -> void:
 	fire_gun_animation.frame = 0

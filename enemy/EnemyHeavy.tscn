@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://dlo4i4iwatfxp"]
 
-[ext_resource type="Script" uid="uid://bw2am065cakbn" path="res://enemy/enemy.gd" id="1_3sgl2"]
+[ext_resource type="Script" uid="uid://dcpit7garberr" path="res://enemy/enemyHeavy.gd" id="1_3sgl2"]
 [ext_resource type="Shader" uid="uid://bvskgif5l00hl" path="res://shaders/enemy.gdshader" id="2_f34wa"]
 [ext_resource type="AudioStream" uid="uid://dafrwvnmnni63" path="res://Assets/Sons Critters/Bruitage/Pas/Wingflap-Insect.mp3" id="3_f34wa"]
 [ext_resource type="Texture2D" uid="uid://cy0lg085kyfda" path="res://Assets/Sprites/BigMonster.png" id="4_f34wa"]
@@ -225,6 +225,7 @@ animations = [{
 script = ExtResource("1_3sgl2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.19922, 0.0420711, 0.00988203, -0.0420549, 1.19926, -0.00213996, -0.00995097, 0.00179224, 1.19996, 0, 0.3, 0)
 shape = SubResource("CapsuleShape3D_gqquq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -244,7 +245,7 @@ volume_db = -20.0
 max_polyphony = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.147921, 0)
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.45, 0)
 pixel_size = 0.02
 billboard = 2
 texture_filter = 0
