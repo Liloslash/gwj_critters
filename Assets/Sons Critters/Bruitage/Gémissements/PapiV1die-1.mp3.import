@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://p66l6bwdrpen"
+path="res://.godot/imported/PapiV1die-1.mp3-7e1edfb8906de53921d81f7a37c3da96.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/Gémissements/PapiV1die-1.mp3"
+dest_files=["res://.godot/imported/PapiV1die-1.mp3-7e1edfb8906de53921d81f7a37c3da96.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
