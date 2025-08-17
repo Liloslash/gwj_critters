@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cokuwf77iot1f"
+path="res://.godot/imported/laser-gun-2.mp3-f96cc108c0c25dc6c40b7266c60396f1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sons Critters/Bruitage/laser-gun-2.mp3"
+dest_files=["res://.godot/imported/laser-gun-2.mp3-f96cc108c0c25dc6c40b7266c60396f1.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

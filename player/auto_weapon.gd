@@ -49,12 +49,10 @@ func fire() -> bool:
 	var space: PhysicsDirectSpaceState3D = get_viewport().world_3d.direct_space_state
 	var query := _build_query(from, to)
 	var result: Dictionary = space.intersect_ray(query)
-	gun_shot.play()
+
 	if result.is_empty():
-		_apply_recoil()
 		return true
 	_apply_damage(result.collider)
-	_apply_recoil()
 	return true
 
 func can_fire() -> bool:
@@ -67,10 +65,14 @@ func set_auto_fire_enabled(enabled: bool) -> void:
 func start_firing() -> void:
 	is_firing = true
 	if auto_fire_enabled:
+		if not gun_shot.playing:
+			gun_shot.play()
 		_continue_auto_fire()
 
 func stop_firing() -> void:
 	is_firing = false
+	if gun_shot.playing:
+		gun_shot.stop()
 	auto_weapon_animation.play("idle")
 
 func _continue_auto_fire() -> void:
