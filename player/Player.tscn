@@ -285,12 +285,13 @@ size_flags_vertical = 8
 
 [node name="AutoWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
 texture_filter = 1
-position = Vector2(-428.434, -322.137)
+position = Vector2(-494, -336)
 rotation = -0.0666123
-scale = Vector2(5.56772, 5.56772)
+scale = Vector2(5.82476, 5.82476)
 sprite_frames = SubResource("SpriteFrames_8cy8x")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.467877
 
 [node name="Control2" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -311,7 +312,7 @@ position = Vector2(-628, -567.268)
 rotation = 0.000739494
 scale = Vector2(4.66406, 4.85366)
 sprite_frames = SubResource("SpriteFrames_wnvi2")
-animation = &"fire"
+animation = &"idle"
 autoplay = "fire"
 centered = false
 
