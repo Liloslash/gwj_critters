@@ -9,10 +9,10 @@ signal game_over
 @onready var damage_zone: Area3D = $DamageZone
 @onready var raycast_weapon: RaycastWeapon = $RaycastWeapon
 @onready var auto_weapon: AutoWeapon = $AutoWeapon
-@onready var raycast_animation: AnimatedSprite2D = $CanvasLayer/MainWeaponAnimation
-@onready var auto_animation: AnimatedSprite2D = $CanvasLayer/AutoWeaponAnimation
 @onready var footsteps_boots: AudioStreamPlayer = $"Footsteps-boots"
 @onready var death_scream: AudioStreamPlayer = $DeathScream
+@onready var auto_animation: AnimatedSprite2D = $CanvasLayer/Control/AutoWeaponAnimation
+@onready var raycast_animation: AnimatedSprite2D = $CanvasLayer/Control2/MainWeaponAnimation
 
 # Weapon management
 var current_weapon_index: int = 0
