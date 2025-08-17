@@ -1,60 +1,19 @@
-[gd_scene load_steps=35 format=3 uid="uid://bporlauvhb1m8"]
+[gd_scene load_steps=39 format=3 uid="uid://bporlauvhb1m8"]
 
 [ext_resource type="Script" uid="uid://bd02db1dg7fme" path="res://player/player.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://cn2u3c6tkito0" path="res://player/auto_weapon.gd" id="2_06mnu"]
 [ext_resource type="Script" uid="uid://cg4svlkrqmlrv" path="res://player/raycast_weapon.gd" id="2_weapon"]
 [ext_resource type="AudioStream" uid="uid://dyxlurd1gttlb" path="res://Assets/Sons Critters/Bruitage/Dégats/pistol-shot.mp3" id="3_wnvi2"]
-[ext_resource type="Texture2D" uid="uid://drh5xetmhdnv4" path="res://Assets/Sprites/Gun-HUD.png" id="4_83hs8"]
 [ext_resource type="Texture2D" uid="uid://bgbgio4t82yq4" path="res://Assets/Sprites/Revolver.png" id="4_gskgj"]
 [ext_resource type="AudioStream" uid="uid://cnxna2q2hfv33" path="res://Assets/Sons Critters/Bruitage/Gémissements/young-male-scream.mp3" id="5_aqcbf"]
 [ext_resource type="AudioStream" uid="uid://co2gc4phif6go" path="res://Assets/Sons Critters/Bruitage/Dégats/single-pistol-gunshot-3.mp3" id="5_mhpjh"]
 [ext_resource type="AudioStream" uid="uid://dlb06f6iddasv" path="res://Assets/Sons Critters/Bruitage/Dégats/Heartbeat.mp3" id="5_x8kxw"]
+[ext_resource type="Texture2D" uid="uid://bjo1nnryt4dj5" path="res://Assets/Sprites/heavy_gun_animation.png" id="8_ndjxb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xhfnw"]
 radius = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2m0d2"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(0, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q6miu"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(2000, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mlfor"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(1000, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stbqk"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(0, 0, 1000, 1000)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_y617q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2m0d2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q6miu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mlfor")
-}],
-"loop": true,
-"name": &"fire",
-"speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_stbqk")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ndjxb"]
 atlas = ExtResource("4_gskgj")
@@ -100,29 +59,9 @@ region = Rect2(128, 256, 128, 128)
 atlas = ExtResource("4_gskgj")
 region = Rect2(256, 256, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x8kxw"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(0, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqcbf"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(1000, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gskgj"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(2000, 0, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_06mnu"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(0, 1000, 1000, 1000)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhpjh"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(1000, 1000, 1000, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_83hs8"]
-atlas = ExtResource("4_83hs8")
-region = Rect2(0, 0, 1000, 1000)
+atlas = ExtResource("4_gskgj")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wnvi2"]
 animations = [{
@@ -161,32 +100,116 @@ animations = [{
 "texture": SubResource("AtlasTexture_yu5hk")
 }],
 "loop": false,
-"name": &"Revolveranim",
+"name": &"fire",
 "speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x8kxw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aqcbf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gskgj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_06mnu")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_mhpjh")
 }],
-"loop": false,
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nth8"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tqfn"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y617q"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8eyfg"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76mgg"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddnt4"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0lmo"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_234y4"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8vxv"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhjxl"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2u3w"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyl0s"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6miu"]
+atlas = ExtResource("8_ndjxb")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8cy8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nth8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tqfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y617q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8eyfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76mgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddnt4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0lmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_234y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8vxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhjxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2u3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyl0s")
+}],
+"loop": true,
 "name": &"fire",
-"speed": 25.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_83hs8")
+"texture": SubResource("AtlasTexture_q6miu")
 }],
 "loop": true,
 "name": &"idle",
@@ -247,24 +270,24 @@ color = Color(1, 0, 0, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="AutoWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
-position = Vector2(569, 282)
-scale = Vector2(0.735985, 0.735985)
-sprite_frames = SubResource("SpriteFrames_y617q")
-animation = &"fire"
-frame_progress = 0.0990806
-
 [node name="MainWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(721, 381)
-scale = Vector2(2.08594, 2.08594)
+position = Vector2(713, 281)
+scale = Vector2(2.88281, 2.88281)
 sprite_frames = SubResource("SpriteFrames_wnvi2")
-animation = &"Revolveranim"
-autoplay = "Revolveranim"
-frame = 10
-frame_progress = 1.0
+animation = &"idle"
+autoplay = "fire"
 centered = false
+
+[node name="AutoWeaponAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(868, 467)
+rotation = -0.0418596
+scale = Vector2(3.07813, 3.07813)
+sprite_frames = SubResource("SpriteFrames_8cy8x")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Footsteps-boots" type="AudioStreamPlayer" parent="."]
 
